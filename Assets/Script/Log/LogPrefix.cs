@@ -11,6 +11,7 @@ namespace Kamatte.Logging
         public static readonly LogPrefix uiManager = new("[UIManager]");
         public static readonly LogPrefix uiFactory = new("[UIFacotry]");
         public static readonly LogPrefix titleButtonmanager = new("[TitleButtonManager]");
+        public static readonly LogPrefix SceneUtility = new("[SceneUtility]");
 
         public string Value { get; }
 

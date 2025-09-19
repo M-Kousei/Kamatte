@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
+using Kamatte.Logging;
 
 namespace Kamatte.Utility
 {
@@ -10,13 +11,13 @@ namespace Kamatte.Utility
         {
             if (string.IsNullOrEmpty(sceneName))
             {
-                Debug.LogError("[SceneUtility] シーン名が空です");
+                LogUtility.Log(LogPrefix.SceneUtility, "シーン名が空です", LogLevel.Error);
                 return;
             }
 
             SceneManager.LoadSceneAsync(sceneName).completed += _ =>
             {
-                Debug.Log($"[SceneUtility] シーン読み込み完了: {sceneName}");
+                LogUtility.Log(LogPrefix.SceneUtility, $"シーン読み込み完了: {sceneName}", LogLevel.Info);
                 onCompleted?.Invoke();
             };
         }
@@ -25,13 +26,14 @@ namespace Kamatte.Utility
         {
             if (string.IsNullOrEmpty(sceneName))
             {
-                Debug.LogError("[SceneUtility] シーン名が空です");
+                Debug.LogError("");
+                LogUtility.Log(LogPrefix.SceneUtility, $"シーン読み込み完了: {sceneName}", LogLevel.Info);
                 return;
             }
 
             SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive).completed += _ =>
             {
-                Debug.Log($"[SceneUtility] Additive読み込み完了: {sceneName}");
+                LogUtility.Log(LogPrefix.SceneUtility, $"Additive読み込み完了: {sceneName}", LogLevel.Info);
                 onCompleted?.Invoke();
             };
         }

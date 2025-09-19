@@ -73,7 +73,6 @@ namespace Kamatte.UI
                 if (mapping.button != null)
                 {
                     buttonMap[mapping.id] = mapping.button;
-                    Debug.Log(buttonMap[ButtonID.GoPlayButton]);
                 }
             }
         }

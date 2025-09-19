@@ -2,6 +2,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Kamatte.Logging;
+using System.Collections;
 
 namespace Kamatte.Fading
 {
@@ -29,15 +30,19 @@ namespace Kamatte.Fading
             }
         }
 
-        public async Task FadeOut(float duration, Color? fadeColor = null)    //  フェードアウト処理を開始する
+        public Task FadeOut(float duration, Color? fadeColor = null)    //  フェードアウト処理を開始する
         {
+            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
             SetFadeColor(fadeColor ?? Color.black);
-            await Fade(0, 1, duration);
+            StartCoroutine(FadeCoroutine(0f, 1f, duration, tcs));
+            return tcs.Task;
         }
        
-        public async Task FadeIn(float duration)    //  フェードイン処理を開始する    
+        public Task FadeIn(float duration)    //  フェードイン処理を開始する    
         {
-            await Fade(1, 0, duration);
+            TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
+            StartCoroutine(FadeCoroutine(1f, 0f, duration, tcs));
+            return tcs.Task;
         }
 
         private void SetFadeColor(Color color)    //  フェードの色をセット
@@ -45,7 +50,7 @@ namespace Kamatte.Fading
             fadeImage.color = color;
         }
 
-        private async Task Fade(float from, float to, float duration)    //  フェードを行う
+        private IEnumerator FadeCoroutine(float from, float to, float duration, TaskCompletionSource<bool> tcs)    //  フェードを行う
         {
             canvasGroup.blocksRaycasts = true;
             canvas.enabled = true;
@@ -57,7 +62,7 @@ namespace Kamatte.Fading
                 float t = Mathf.Clamp01(elapsed / duration);
                 float alpha = Mathf.Lerp(from, to, t);
                 canvasGroup.alpha = alpha;
-                await Task.Yield(); // 非同期待機（メインスレッドにやさしい）
+                yield return null;
             }
 
             canvasGroup.alpha = to;
@@ -67,6 +72,8 @@ namespace Kamatte.Fading
                 canvas.enabled = false;
                 canvasGroup.blocksRaycasts = false;
             }
+
+            tcs.SetResult(true);
         }
     }
 }
