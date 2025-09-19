@@ -19,7 +19,7 @@ namespace Kamatte.Fade
             int totalTask = fadeImages.Length;
             const string ProgressTitle = "FadePlaneの設定適用中";
             const string ProgressMsg_Scene = "シーン:";
-            const string SetedImgMsg_Scene = "シーンのFadePlaneに設定適応:";
+            //const string SetedImgMsg_Scene = "シーンのFadePlaneに設定適応:";
 
             try
             {

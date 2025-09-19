@@ -2,6 +2,7 @@ using UnityEngine;
 using Kamatte.Scenes;
 using Kamatte.Utility;
 using Kamatte.UI.Interface;
+using Kamatte.Fading;
 
 namespace Kamatte.UI.Buttons
 {
@@ -9,10 +10,6 @@ namespace Kamatte.UI.Buttons
     {
         [SerializeField] private ButtonManager buttonManager;
 
-        void Awake()
-        {
-            Debug.Log(3);
-        }
         //  ボタン初期化
         public void Init()
         {
@@ -33,8 +30,10 @@ namespace Kamatte.UI.Buttons
             buttonManager.DisableAllButtons();
         }
 
-        void OnGoPlayPressed()
+        //  ゲーム開始を押したときの処理
+        async void OnGoPlayPressed()
         {
+            await ScreenFader.Instance.FadeOut(1f);
             SceneUtility.LoadScene(SceneNameMap.GetName(SceneID.Shop));
         }
 
