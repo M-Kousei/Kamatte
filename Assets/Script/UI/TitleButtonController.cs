@@ -1,0 +1,46 @@
+using UnityEngine;
+using Kamatte.Scenes;
+using Kamatte.Utility;
+using Kamatte.UI.Interface;
+
+namespace Kamatte.UI.Buttons
+{
+    public class TitleButtonController : MonoBehaviour, IUIController    //  タイトル画面のボタンに反応を入れる
+    {
+        [SerializeField] private ButtonManager buttonManager;
+
+        void Awake()
+        {
+            Debug.Log(3);
+        }
+        //  ボタン初期化
+        public void Init()
+        {
+            // ボタン登録など
+            buttonManager.Register(ButtonID.GoPlayButton, OnGoPlayPressed);
+
+            // UI初期状態の設定など
+            buttonManager.EnableAllButtons();
+        }
+
+        //    ボタン初期化解除
+        public void Deinit()
+        {
+            // ボタンのイベント解除（※ Unregister を実装しておく）
+            buttonManager.Unregister(ButtonID.GoPlayButton);
+
+            // UIの一時非表示や状態クリアなど
+            buttonManager.DisableAllButtons();
+        }
+
+        void OnGoPlayPressed()
+        {
+            SceneUtility.LoadScene(SceneNameMap.GetName(SceneID.Shop));
+        }
+
+        void OnExitPressed()
+        {
+            // アプリ終了処理
+        }
+    }
+}

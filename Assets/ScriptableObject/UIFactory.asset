@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c04664bcbb0b34546b4f96b2bd420700, type: 3}
+  m_Name: UIFactory
+  m_EditorClassIdentifier: 
+  sceneToUIMap: {fileID: 11400000, guid: 3d9fc436532d6c842aa851dec68f89b9, type: 2}
+  uiMappings:
+  - buttonControllerID: 0
+    uiPrefab: {fileID: 8702533297495558620, guid: bca514422e3cfb84390ef02e5fdc1030, type: 3}
+  - buttonControllerID: 1
+    uiPrefab: {fileID: 0}
