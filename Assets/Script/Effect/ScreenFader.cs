@@ -1,12 +1,12 @@
+using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Kamatte.Logging;
-using System.Collections;
 
 namespace Kamatte.Fading
 {
-    public class ScreenFader : MonoBehaviour    //  画面をフェードする
+    public class ScreenFader : MonoBehaviour, IFadeConotroller    //  画面をフェードする
     {
         public static ScreenFader Instance { get; private set; }
 
@@ -28,6 +28,12 @@ namespace Kamatte.Fading
             {
                 LogUtility.Log(LogPrefix.screenFader, "画面のフェードに必要な参照が不足しています。", LogLevel.Warning);
             }
+        }
+
+        public void Init(float imageAlpha)
+        {
+            canvasGroup.alpha = imageAlpha;
+            fadeImage.raycastTarget = false;
         }
 
         public Task FadeOut(float duration, Color? fadeColor = null)    //  フェードアウト処理を開始する
@@ -74,6 +80,11 @@ namespace Kamatte.Fading
             }
 
             tcs.SetResult(true);
+        }
+
+        public void Deinit()
+        {
+            //  初期化解除処理
         }
     }
 }

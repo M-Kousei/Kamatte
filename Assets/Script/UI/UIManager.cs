@@ -3,6 +3,7 @@ using UnityEngine;
 using Kamatte.Scenes;
 using Kamatte.UI.Interface;
 using Kamatte.UI.Factory;
+using Kamatte.Fading;
 
 public class UIManager : MonoBehaviour    //  •ïŠ‡“I‚ÈUIŠÇ—‚ğ‚·‚é
 {

@@ -1,5 +1,6 @@
 using UnityEngine;
 using Kamatte.Scenes;
+using Kamatte.Fading;
 
 namespace Kamatte.GameState
 {
@@ -21,12 +22,13 @@ namespace Kamatte.GameState
 
         void Start()
         {
-            UIManager.Instance.ChangeUI(SceneID.Title);
+            OnTitle();
         }
-        
+
         public void OnTitle()    //  タイトル状態の処理
         {
             UIManager.Instance.ChangeUI(SceneID.Title);
+            ScreenFader.Instance.Init(0f);
         }
         public void OnShop()    //  ショップ状態の処理  
         {
