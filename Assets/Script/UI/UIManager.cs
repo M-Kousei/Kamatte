@@ -4,10 +4,11 @@ using Kamatte.Scenes;
 using Kamatte.UI.Interface;
 using Kamatte.UI.Factory;
 using Kamatte.Fading;
+using Kamatte.GameState;
 
 public class UIManager : MonoBehaviour    //  包括的なUI管理をする
 {
-    private Dictionary<SceneID, IUIController> uiCache = new();
+    private Dictionary<GameStateID, IUIController> uiCache = new();
     [SerializeField] private UIFactory uiFactory;
     public static UIManager Instance { get; private set; }
 
@@ -26,18 +27,18 @@ public class UIManager : MonoBehaviour    //  包括的なUI管理をする
         DontDestroyOnLoad(gameObject);
     }
 
-    //  シーン単位でUIを変更する
-    public void ChangeUI(SceneID sceneID)
+    //  ゲームステート単位でUIを変更する
+    public void ChangeUI(GameStateID gameStateID)
     {
         currentUIController?.Deinit();    //  現在のUIを無効果
 
-
-        if (!uiCache.TryGetValue(sceneID, out var ui))
+        if (!uiCache.TryGetValue(gameStateID, out var ui))
         {
-            ui = uiFactory.CreateUI(sceneID);
-            uiCache[sceneID] = ui;
+            ui = uiFactory.CreateUI(gameStateID);
+            uiCache[gameStateID] = ui;
         }
+
         currentUIController = ui;
-        currentUIController.Init();  // 新しいUIを初期化
+        currentUIController.Init();    //  新しいUIを初期化
     }
 }
