@@ -17,3 +17,5 @@ MonoBehaviour:
     controllerID: 0
   - sceneID: 1
     controllerID: 1
+  - sceneID: 2
+    controllerID: 1

@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEditor;
 using Kamatte.Logging;
-using Kamatte.Scenes;
+using Kamatte.GameState;
 using Kamatte.UI.Buttons;
 using Kamatte.UI.Interface;
 #if UNITY_EDITOR
@@ -149,18 +149,18 @@ namespace Kamatte.UI.Factory
             }
         }
 
-        //  SceneIDに対応したUIコントローラーを生成
-        public IUIController CreateUI(SceneID sceneID)
+        //  GameStateIDに対応したUIコントローラーを生成
+        public IUIController CreateUI(GameStateID gameStateID)
         {
-            if (!sceneToUIMap.TryGetControllerID(sceneID, out var buttonControllerID))
+            if (!sceneToUIMap.TryGetControllerID(gameStateID, out var buttonControllerID))
             {
-                LogUtility.Log(LogPrefix.uiFactory, $"SceneID {sceneID} に対応する ButtonControllerID が見つかりません", LogLevel.Warning);
+                LogUtility.Log(LogPrefix.uiFactory, $"SceneID {gameStateID} に対応する ButtonControllerID が見つかりません", LogLevel.Warning);
                 return null;
             }
 
             if (!prefabDict.TryGetValue(buttonControllerID, out var prefab))
             {
-                LogUtility.Log(LogPrefix.uiFactory, $"シーンIDに対応したUIコントローラーのプレハブがありません SceneID : {sceneID}", LogLevel.Warning);
+                LogUtility.Log(LogPrefix.uiFactory, $"シーンIDに対応したUIコントローラーのプレハブがありません SceneID : {gameStateID}", LogLevel.Warning);
                 return null;
             }
 

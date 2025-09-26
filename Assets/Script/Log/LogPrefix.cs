@@ -1,7 +1,6 @@
-
 namespace Kamatte.Logging
 {
-    public readonly struct LogPrefix
+    public readonly struct LogPrefix    //  ログプレフィクス定義クラス
     {
         // 事前定義タグ
         public static readonly LogPrefix autoAssign = new("[AutoAssign]");
