@@ -50,15 +50,24 @@ namespace Kamatte.SwordCatch
         }
         void ChikenUpdate()    //  «ŠiChiken‚ÌUpdate
         {
-
+            if(swingTimer < 0)
+            {
+                //  Swing
+            }
         }
         void SwordMasterUpdate()    //  «ŠiSwordMasterUpdate
         {
-
+            if (swingTimer < 0)
+            {
+                //  Swing
+            }
         }
         void SpeedStarUpdate()    //  «ŠiSpeedStar‚ÌUpdate
         {
-
+            if (swingTimer < 0)
+            {
+                //  Swing
+            }
         }
     }
 }
