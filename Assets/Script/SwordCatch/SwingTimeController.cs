@@ -33,6 +33,31 @@ namespace Kamatte.SwordCatch
 
         void Update()
         {
+            swingTimer -= Time.deltaTime;
+
+            switch (swingerPersonal)
+            {
+                case SwingerPersonal.Chiken:
+                    ChikenUpdate();
+                    break;
+                case SwingerPersonal.SwordMaster:
+                    SwordMasterUpdate();
+                    break;
+                case SwingerPersonal.SpeedStar:
+                    SpeedStarUpdate();
+                    break;
+            }
+        }
+        void ChikenUpdate()    //  ê´äiChikenÇÃUpdate
+        {
+
+        }
+        void SwordMasterUpdate()    //  ê´äiSwordMasterUpdate
+        {
+
+        }
+        void SpeedStarUpdate()    //  ê´äiSpeedStarÇÃUpdate
+        {
 
         }
     }
