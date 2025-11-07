@@ -1,32 +1,34 @@
 ﻿using System;
 using UnityEngine;
-using Kamatte.GameState;
 using Kamatte.UI.Buttons;
 
-[CreateAssetMenu(menuName = "Mapping/SceneUIIDMap")]
-public class SceneToUIMap : ScriptableObject    //  SceneIDと他のUIIDを変換するためのMap
+namespace Kamatte.Core
 {
-    [Serializable]
-    public struct Mapping    //  ID変換用Map
+    [CreateAssetMenu(menuName = "Mapping/SceneUIIDMap")]
+    public class SceneToUIMap : ScriptableObject    //  SceneIDと他のUIIDを変換するためのMap
     {
-        public GameStateID sceneID;
-        public ButtonControllerID controllerID;
-    }
-
-    [SerializeField] private Mapping[] mappings;
-
-    //  SceneIDに対応するコントローラーを抽出する
-    public bool TryGetControllerID(GameStateID sceneID, out ButtonControllerID controllerID)
-    {
-        foreach (var map in mappings)
+        [Serializable]
+        public struct Mapping    //  ID変換用Map
         {
-            if (map.sceneID == sceneID)
-            {
-                controllerID = map.controllerID;
-                return true;
-            }
+            public GameStateID sceneID;
+            public ButtonControllerID controllerID;
         }
-        controllerID = default;
-        return false;
+
+        [SerializeField] private Mapping[] mappings;
+
+        //  SceneIDに対応するコントローラーを抽出する
+        public bool TryGetControllerID(GameStateID sceneID, out ButtonControllerID controllerID)
+        {
+            foreach (var map in mappings)
+            {
+                if (map.sceneID == sceneID)
+                {
+                    controllerID = map.controllerID;
+                    return true;
+                }
+            }
+            controllerID = default;
+            return false;
+        }
     }
 }

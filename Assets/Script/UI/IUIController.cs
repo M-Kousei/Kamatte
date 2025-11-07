@@ -1,4 +1,4 @@
-namespace Kamatte.UI.Interface
+namespace Kamatte.Core
 {
     public interface IUIController    //  UIコントローラーインターフェース
     {

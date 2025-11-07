@@ -2,9 +2,8 @@
 using UnityEditor;
 using UnityEditorInternal;
 using UnityEngine;
-using Kamatte.UI.Factory;
 
-namespace Kamatte.UI.Editors
+namespace Kamatte.Core
 {
     [CustomEditor(typeof(UIFactory))]
     public class UIFactoryEditor : Editor

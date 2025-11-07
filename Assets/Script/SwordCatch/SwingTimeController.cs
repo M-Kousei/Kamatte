@@ -7,6 +7,7 @@ namespace Kamatte.SwordCatch
     {
         [SerializeField] CustomerStatus customerStatus;    //  お客さんのステータス
         CustomerStatusBlock customerStatusBlock;           //  お客さんのステータスブロック
+        SwordSwingController _swordSwingController;             //  刀振りのコントローラー
 
         SwingerPersonal swingerPersonal;     //  刀振りの性格
 
@@ -19,18 +20,15 @@ namespace Kamatte.SwordCatch
 
             swingTimer = customerStatusBlock.swingTimer;
         }
-        void Initialize()    //  クラス変数初期化
+        public void Initialize(SwordSwingController swingController)    //  クラス変数初期化
         {
             customerStatusBlock = customerStatus.GetStats(CustomerID.Samurai);
+            _swordSwingController = swingController;
+
             swingerPersonal = customerStatusBlock.swingerPersonal;
 
             swingTimer = customerStatusBlock.swingTimer;
         }
-        void Start()
-        {
-
-        }
-
         void Update()
         {
             swingTimer -= Time.deltaTime;
@@ -47,13 +45,15 @@ namespace Kamatte.SwordCatch
                     SpeedStarUpdate();
                     break;
             }
+            if (swingTimer < 0)
+            {
+                _swordSwingController.SwingSword();
+                swingTimer = 10;
+            }
         }
         void ChikenUpdate()    //  性格ChikenのUpdate
         {
-            if(swingTimer < 0)
-            {
-                //  Swing
-            }
+
         }
         void SwordMasterUpdate()    //  性格SwordMasterUpdate
         {

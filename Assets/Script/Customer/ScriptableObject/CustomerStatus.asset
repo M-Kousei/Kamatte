@@ -16,7 +16,7 @@ MonoBehaviour:
   - customerName: 0
     Stat:
       swingerPersonal: 0
-      swingTimer: 20
+      swingTimer: 10
   - customerName: 0
     Stat:
       swingerPersonal: 0

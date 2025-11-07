@@ -3,16 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEditor;
-using Kamatte.Logging;
-using Kamatte.GameState;
 using Kamatte.UI.Buttons;
-using Kamatte.UI.Interface;
 #if UNITY_EDITOR
 using UnityEditor.AddressableAssets;
 using UnityEditor.AddressableAssets.Settings;
 #endif
 
-namespace Kamatte.UI.Factory
+namespace Kamatte.Core
 {
     [CreateAssetMenu(menuName = "Factory/UIFactory")]
     public class UIFactory : ScriptableObject    //  UIコントローラーを生成する
@@ -62,7 +59,7 @@ namespace Kamatte.UI.Factory
 
                 if (foundEntry == null)
                 {
-                    LogUtility.Log(LogPrefix.uiFactory, $"{address} に対応するAddressablesアセットが見つかりません。", LogLevel.Warning);
+                    LogUtility.Log(LogPrefix.UiFactory, $"{address} に対応するAddressablesアセットが見つかりません。", LogLevel.Warning);
                     continue;
                 }
 
@@ -71,7 +68,7 @@ namespace Kamatte.UI.Factory
 
                 if (prefab == null)
                 {
-                    LogUtility.Log(LogPrefix.uiFactory, $"アドレス {address} に対応するPrefabが見つかりませんでした。", LogLevel.Warning);
+                    LogUtility.Log(LogPrefix.UiFactory, $"アドレス {address} に対応するPrefabが見つかりませんでした。", LogLevel.Warning);
                     continue;
                 }
 
@@ -79,7 +76,7 @@ namespace Kamatte.UI.Factory
                 if (index >= 0 && uiMappings[index].uiPrefab != prefab)
                 {
                     uiMappings[index].uiPrefab = prefab;
-                    LogUtility.Log(LogPrefix.uiFactory, $"{buttonControllerID} に {prefab.name} をAddressablesから自動割当しました。", LogLevel.Info);
+                    LogUtility.Log(LogPrefix.UiFactory, $"{buttonControllerID} に {prefab.name} をAddressablesから自動割当しました。", LogLevel.Info);
                 }
 
                 GameObject uiPrefab = uiMappings[index].uiPrefab;
@@ -154,13 +151,13 @@ namespace Kamatte.UI.Factory
         {
             if (!sceneToUIMap.TryGetControllerID(gameStateID, out var buttonControllerID))
             {
-                LogUtility.Log(LogPrefix.uiFactory, $"SceneID {gameStateID} に対応する ButtonControllerID が見つかりません", LogLevel.Warning);
+                LogUtility.Log(LogPrefix.UiFactory, $"SceneID {gameStateID} に対応する ButtonControllerID が見つかりません", LogLevel.Warning);
                 return null;
             }
 
             if (!prefabDict.TryGetValue(buttonControllerID, out var prefab))
             {
-                LogUtility.Log(LogPrefix.uiFactory, $"シーンIDに対応したUIコントローラーのプレハブがありません SceneID : {gameStateID}", LogLevel.Warning);
+                LogUtility.Log(LogPrefix.UiFactory, $"シーンIDに対応したUIコントローラーのプレハブがありません SceneID : {gameStateID}", LogLevel.Warning);
                 return null;
             }
 
@@ -168,7 +165,7 @@ namespace Kamatte.UI.Factory
             var controller = instance.GetComponent<IUIController>();
             if (controller == null)
             {
-                LogUtility.Log(LogPrefix.uiFactory, $"UIController doesn't have Controller Conponet UIController : {instance}", LogLevel.Error);
+                LogUtility.Log(LogPrefix.UiFactory, $"UIController doesn't have Controller Conponet UIController : {instance}", LogLevel.Error);
             }
 
             return controller;
