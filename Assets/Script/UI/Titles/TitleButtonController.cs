@@ -1,10 +1,6 @@
 using UnityEngine;
-using Kamatte.Scenes;
-using Kamatte.Utility;
-using Kamatte.UI.Interface;
-using Kamatte.Fading;
 
-namespace Kamatte.UI.Buttons
+namespace Kamatte.Core
 {
     public class TitleButtonController : MonoBehaviour, IUIController    //  タイトル画面のボタンに反応を入れる
     {

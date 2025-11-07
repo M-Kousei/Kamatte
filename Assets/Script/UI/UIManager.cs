@@ -1,44 +1,42 @@
 using System.Collections.Generic;
 using UnityEngine;
-using Kamatte.Scenes;
-using Kamatte.UI.Interface;
-using Kamatte.UI.Factory;
-using Kamatte.Fading;
-using Kamatte.GameState;
 
-public class UIManager : MonoBehaviour    //  包括的なUI管理をする
+namespace Kamatte.Core
 {
-    private Dictionary<GameStateID, IUIController> uiCache = new();
-    [SerializeField] private UIFactory uiFactory;
-    public static UIManager Instance { get; private set; }
-
-
-    private IUIController currentUIController;
-
-
-    void Awake()
+    public class UIManager : MonoBehaviour    //  包括的なUI管理をする
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+        private Dictionary<GameStateID, IUIController> uiCache = new();
+        [SerializeField] private UIFactory uiFactory;
+        public static UIManager Instance { get; private set; }
 
-    //  ゲームステート単位でUIを変更する
-    public void ChangeUI(GameStateID gameStateID)
-    {
-        currentUIController?.Deinit();    //  現在のUIを無効果
 
-        if (!uiCache.TryGetValue(gameStateID, out var ui))
+        private IUIController currentUIController;
+
+
+        void Awake()
         {
-            ui = uiFactory.CreateUI(gameStateID);
-            uiCache[gameStateID] = ui;
+            if (Instance != null && Instance != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
-        currentUIController = ui;
-        currentUIController.Init();    //  新しいUIを初期化
+        //  ゲームステート単位でUIを変更する
+        public void ChangeUI(GameStateID gameStateID)
+        {
+            currentUIController?.Deinit();    //  現在のUIを無効果
+
+            if (!uiCache.TryGetValue(gameStateID, out var ui))
+            {
+                ui = uiFactory.CreateUI(gameStateID);
+                uiCache[gameStateID] = ui;
+            }
+
+            currentUIController = ui;
+            currentUIController.Init();    //  新しいUIを初期化
+        }
     }
 }

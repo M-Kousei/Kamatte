@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using Kamatte.Logging;
 
-namespace Kamatte.UI
+namespace Kamatte.Core
 {
     public class ButtonManager : MonoBehaviour    //  ボタン登録・管理スクリプト
     {
@@ -25,11 +24,11 @@ namespace Kamatte.UI
                     .FirstOrDefault(b => string.Equals(b.name, id.ToString(), StringComparison.Ordinal));
                 if (button != null)
                 {
-                    LogUtility.Log(LogPrefix.titleButtonmanager ,$" {id} に {button.name} を自動割当しました。", LogLevel.Info);
+                    LogUtility.Log(LogPrefix.TitleButtonmanager ,$" {id} に {button.name} を自動割当しました。", LogLevel.Info);
                 }
                 else
                 {
-                    LogUtility.Log(LogPrefix.titleButtonmanager, $" {id} に対応するボタンが見つかりませんでした。", LogLevel.Warning);
+                    LogUtility.Log(LogPrefix.TitleButtonmanager, $" {id} に対応するボタンが見つかりませんでした。", LogLevel.Warning);
                 }
             }
 #endif
@@ -86,7 +85,7 @@ namespace Kamatte.UI
             }
             else
             {
-                LogUtility.Log(LogPrefix.titleButtonmanager, $"ボタンが見つかりません: {ButtonID}", LogLevel.Warning);
+                LogUtility.Log(LogPrefix.TitleButtonmanager, $"ボタンが見つかりません: {ButtonID}", LogLevel.Warning);
             }
         }
         

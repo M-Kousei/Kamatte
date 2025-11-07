@@ -1,9 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System;
-using Kamatte.Logging;
 
-namespace Kamatte.Utility
+namespace Kamatte.Core
 {
     public static class SceneUtility    //  シーンユーティリティ
     {
