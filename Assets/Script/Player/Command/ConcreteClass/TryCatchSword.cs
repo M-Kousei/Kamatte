@@ -1,6 +1,6 @@
 using UnityEngine;
 using Kamatte.Core;
-using Kamatte.Animation;
+using Kamatte.SwordCatch;
 
 namespace Kamatte.Player
 {

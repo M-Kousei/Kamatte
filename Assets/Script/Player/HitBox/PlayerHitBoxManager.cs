@@ -8,21 +8,21 @@ namespace Kamatte.Player
     {
         public List<HitBoxData> _hitBoxes;                       //  ヒットボックスデータ
         Dictionary<HitBoxID, HitBoxData> _hitbBoxDictionary;     //  当たり判定一覧
-        Transform _leftHandTransform;                            //  プレイヤーの左手のトランスフォーム
-        Transform _rightHandTransform;                           //  プレイヤーの右手のトランスフォーム
-        HitBoxData _activeBox = null;                            //  アクティブになってる当たり判定
+        public Transform _playerHeadTF;                                   //  プレイヤーの頭
+        public HitBoxData _activeBox = null;                            //  アクティブになってる当たり判定
 
-        HitBoxID activeID = HitBoxID.None;                       //  アクティブにするボックスID
+        HitBoxID activeID = HitBoxID.Unknown;                       //  アクティブにするボックスID
 
-        public PlayerHitBoxMgr(PlayerHitBoxData hitBoxData, Transform rightHandTF, Transform leftHandTF)    //  コンストラクタ
+        float elapsed;    //  経過時間
+
+        public PlayerHitBoxMgr(PlayerHitBoxData hitBoxData, Transform playerHead)    //  コンストラクタ
         {
+            _hitbBoxDictionary = new Dictionary<HitBoxID, HitBoxData>();
             foreach (var box in hitBoxData.playerHitBoxes)
             {
                 _hitbBoxDictionary[box.id] = box;
             }
-                _hitBoxes = hitBoxData.playerHitBoxes;
-            _rightHandTransform = rightHandTF;
-            _leftHandTransform = leftHandTF;
+            _playerHeadTF = playerHead;
         }
 
         void Initalize()    //  初期化
@@ -48,13 +48,11 @@ namespace Kamatte.Player
             }
         }
 
-        public void Update(TimeContext time)    //  毎フレーム実行処理
+        public void Update()    //  毎フレーム実行処理
         {
+            Debug.Log(77);
             if (_activeBox == null) return;
-
-            Vector3 center = (_leftHandTransform.position + _rightHandTransform.position) * 0.5f + _activeBox.offset;
-            var hits = Physics.OverlapBox(center, _activeBox.size * 0.5f);
-
+            var hits = Physics.OverlapBox(ResolveCenter(_playerHeadTF), _activeBox.size * 0.5f);    //  gpt とここから
             foreach (var h in hits)
             {
                 if (h.CompareTag("Sword"))
@@ -64,5 +62,13 @@ namespace Kamatte.Player
                 }
             }
         }
+
+        public Vector3 ResolveCenter(Transform owner) => _activeBox.anchorType switch    //  当たり判定の中心地を返す
+        {
+            HitBoxAnchorType.Transform => owner.position + owner.rotation * _activeBox.offset,
+            HitBoxAnchorType.Bone => _activeBox.boneTransform.position + _activeBox.boneTransform.rotation * _activeBox.offset,
+            HitBoxAnchorType.World => _activeBox.worldCenter != null ? _activeBox.worldCenter : Vector3.zero,
+            _ => owner.position
+        };
     }
 }

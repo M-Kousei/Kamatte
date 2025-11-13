@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Kamatte.Animation
+namespace Kamatte.SwordCatch
 {
     public class SwordCatchAnimHash_Player    //  プレイヤーの白刃取りアニメーションハッシュ
     {

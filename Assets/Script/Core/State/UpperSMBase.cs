@@ -2,7 +2,7 @@ using System;
 
 namespace Kamatte.Core
 {
-    public abstract class StateMachineBase<TStateID> :IStateMachine<TStateID>, IState<TStateID> where TStateID : Enum    //  ステートマシーンベースクラス
+    public abstract class StateMachineBase<TStateID> : IStateMachine<TStateID>, IState<TStateID> where TStateID : Enum    //  ステートマシーンベースクラス
     {
         protected IState<TStateID> _currentState;
 

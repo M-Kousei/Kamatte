@@ -4,19 +4,23 @@ namespace Kamatte.Player
 {
     public class PlayerUpperSMFactory : SMFactoryBase<PlayerStateMachineID>    //  プレイヤー上位ステートマシーン生成
     {
-        public PlayerUpperSMFactory()    //  コンストラクタ
+        PlayerUpperSM _upperStateMachine;    //  アッパーステートマシーン(//　ここから)
+        PlayerHitBoxMgr _hitBoxMamager;    //  ヒットボックスマネージャー
+
+        public PlayerUpperSMFactory(PlayerHitBoxMgr hitBoxMgr)    //  コンストラクタ
         {
+            _hitBoxMamager = hitBoxMgr;
             Register(PlayerStateMachineID.SwordCatchSM, () => CreateSwordCatchSM());    //  ステートマシーン登録
         }
 
         private IState<PlayerStateMachineID> CreateSwordCatchSM()    //  白刃取りステートマシーン生成
         {
-            var swordCatchSMFactory = new PlayerStateFacotry_SwordCatch(null);
-            var swordCatchSM = new PlayerSwordCatchSM(this);
+            var swordCatchSM = new PlayerSwordCatchSM();
+            var swordCatchSMFactory = new PlayerStateFacotry_SwordCatch(_hitBoxMamager, swordCatchSM);
 
             swordCatchSM.Initialize(swordCatchSMFactory);    //  ステートマシーン初期化
-            
-            return swordCatchSM as IState<PlayerStateMachineID>;
+
+            return swordCatchSM;
         }
     }
 }
