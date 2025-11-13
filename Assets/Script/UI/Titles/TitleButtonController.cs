@@ -29,6 +29,7 @@ namespace Kamatte.Core
         //  ƒQ[ƒ€ŠJn‚ğ‰Ÿ‚µ‚½‚Æ‚«‚Ìˆ—
         async void OnGoPlayPressed()
         {
+            buttonManager.SetInteractable(ButtonID.GoPlayButton, false);   
             await ScreenFader.Instance.FadeOut(1f);
             SceneUtility.LoadScene(SceneNameMap.GetName(SceneID.Shop));
         }

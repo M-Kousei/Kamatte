@@ -104,7 +104,6 @@ namespace Kamatte.Core
                 button.interactable = interactable;
             }
         }
-
         public void DisableAllButtons()    //  ボタン全部反応不可能にする
         {
             foreach (var btn in buttonMap.Values)
