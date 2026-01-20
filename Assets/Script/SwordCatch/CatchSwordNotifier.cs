@@ -7,6 +7,8 @@ namespace Kamatte.Player
     [RequireComponent(typeof(Rigidbody))]
     public class CatchSwordNotifier : MonoBehaviour    //  白刃取り
     {
+        [SerializeField] Vector3 StarEffectSpawnPos;    //  星を生成するポジション
+
         private void OnEnable()
         {
             //SwordCatchEventBus.OnCatchPressed += ;
@@ -20,7 +22,8 @@ namespace Kamatte.Player
         {
             if (other.CompareTag("Sword"))
             {
-                LogUtility.Log(LogPrefix.CatchSwordNotifier, "白刃取り成功", LogLevel.Info);
+                Debug.Log("嵐北まるでざぶーん");
+                LogUtility.Log(LogPrefix.CatchSwordNotifier, "嵐北まるでざぶーん", LogLevel.Info);
                 //SwordCatchEventBus.OnCatchSuccess();
             }
         }
