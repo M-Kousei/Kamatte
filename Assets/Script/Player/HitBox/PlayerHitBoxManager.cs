@@ -6,23 +6,30 @@ namespace Kamatte.Player
 {
     public class PlayerHitBoxMgr    //  ヒットボックス管理者
     {
+        PlayerController controller;
         public List<HitBoxData> _hitBoxes;                       //  ヒットボックスデータ
         Dictionary<HitBoxID, HitBoxData> _hitbBoxDictionary;     //  当たり判定一覧
         public Transform _playerHeadTF;                                   //  プレイヤーの頭
         public HitBoxData _activeBox = null;                            //  アクティブになってる当たり判定
+        Animator _swordSwingerAnimator;    //  アニメーター
 
         HitBoxID activeID = HitBoxID.Unknown;                       //  アクティブにするボックスID
+        Vector3 StarEffectPos;
+
 
         float elapsed;    //  経過時間
 
-        public PlayerHitBoxMgr(PlayerHitBoxData hitBoxData, Transform playerHead)    //  コンストラクタ
+        public PlayerHitBoxMgr(PlayerHitBoxData hitBoxData, PlayerController playerController, Animator SwordSwingerAnim, Transform playerHead, Vector3 starEffectPos)    //  コンストラクタ
         {
             _hitbBoxDictionary = new Dictionary<HitBoxID, HitBoxData>();
             foreach (var box in hitBoxData.playerHitBoxes)
             {
                 _hitbBoxDictionary[box.id] = box;
             }
+            controller = playerController;
+            _swordSwingerAnimator = SwordSwingerAnim;
             _playerHeadTF = playerHead;
+            StarEffectPos = starEffectPos;
         }
 
         void Initalize()    //  初期化
@@ -35,6 +42,7 @@ namespace Kamatte.Player
             if (_hitbBoxDictionary.TryGetValue(id, out var box))
             {
                 _activeBox = box;
+                activeID = box.id;
                 LogUtility.Log(LogPrefix.playerHitBoxController, $"{id} ヒットボックス有効", LogLevel.Info);
             }
         }
@@ -45,6 +53,8 @@ namespace Kamatte.Player
             {
                 _activeBox = null;
                 LogUtility.Log(LogPrefix.playerHitBoxController, $"{id} ヒットボックス無効", LogLevel.Info);
+                controller.isCatching = false;
+                _swordSwingerAnimator.SetBool("isCatched", false);
             }
         }
 
@@ -57,8 +67,12 @@ namespace Kamatte.Player
             {
                 if (h.CompareTag("Sword"))
                 {
+                    EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.CatchSword), StarEffectPos);
+
                     LogUtility.Log(LogPrefix.playerHitBoxController, "白刃取り成功", LogLevel.Info);
                     SwordCatchEventBus.CatchSuccess();
+                    controller.isCatching = true;
+                    _swordSwingerAnimator.SetBool("isCatched", true);
                 }
             }
         }

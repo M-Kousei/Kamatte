@@ -7,11 +7,15 @@ namespace Kamatte.Player
     public class PlayerController : MonoBehaviour    //  プレイヤー制御クラス
     {
         [SerializeField] PlayerStatus playerStatus;   //  プレイヤーのステータス
+        [SerializeField] Animator swordSwingAnim;   //  プレイヤーのステータス
         PlayerUpperSMFactory playerUpperSMFactory;    //  プレイヤーの上位ファクトリー
         PlayerUpperSM playerUpperSM;                  //  プレイヤー上位ステートマシーン
         PlayerHitBoxMgr playerHitBoxMgr;              //  プレイヤーヒットボックス管理クラス
         Animator playerAnimator;                      //  プレイヤーアニメーター
 
+        [SerializeField] Vector3 StarEffectPos;
+
+        public bool isCatching = false;
         private void Awake()
         {
             PlayerContext.Instance.RegistPlayerCotroller(this);
@@ -21,7 +25,7 @@ namespace Kamatte.Player
         public void Initialize(PlayerHitBoxData hitBoxData, Transform headTF)    //  初期化
         {
             playerUpperSM = new PlayerUpperSM();
-            playerHitBoxMgr = new PlayerHitBoxMgr(hitBoxData, headTF);
+            playerHitBoxMgr = new PlayerHitBoxMgr(hitBoxData, this, swordSwingAnim, headTF, StarEffectPos);
             playerUpperSMFactory = new PlayerUpperSMFactory(playerHitBoxMgr);
 
             playerUpperSM.Initialize(playerUpperSMFactory);
@@ -59,6 +63,11 @@ namespace Kamatte.Player
             Gizmos.color = Color.red;
             Gizmos.matrix = Matrix4x4.TRS(center, playerHitBoxMgr._playerHeadTF.rotation, Vector3.one);
             Gizmos.DrawWireCube(Vector3.zero, size);
+        }
+        public void EraseHitBox()
+        {
+            Debug.Log("ナイトメアの時もあける目は");
+            playerHitBoxMgr.DisableHitBox(HitBoxID.SwordCatch);
         }
     }
 }
