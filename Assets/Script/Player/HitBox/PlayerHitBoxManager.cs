@@ -60,7 +60,6 @@ namespace Kamatte.Player
 
         public void Update()    //  –ˆƒtƒŒ[ƒ€Àsˆ—
         {
-            Debug.Log(77);
             if (_activeBox == null) return;
             var hits = Physics.OverlapBox(ResolveCenter(_playerHeadTF), _activeBox.size * 0.5f);    //  gpt ‚Æ‚±‚±‚©‚ç
             foreach (var h in hits)

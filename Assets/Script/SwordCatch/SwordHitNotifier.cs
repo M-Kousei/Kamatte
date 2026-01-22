@@ -1,5 +1,6 @@
 using UnityEngine;
 using Kamatte.Player;
+using Kamatte.Core;
 
 namespace Kamatte.SwordCatch
 {
@@ -12,6 +13,7 @@ namespace Kamatte.SwordCatch
             {
                 Debug.Log("End", this.gameObject);
                 //SwordCatchEventBus.OnCatchSuccess();
+                EffectActAPI.Action(new EffectActKey(EffectActor.Player, EffectActTrigger.Hit, EffectActType.Blow));
             }
             //  Endèàóù
         }
