@@ -16,6 +16,7 @@ namespace Kamatte.Player
         [SerializeField] Vector3 StarEffectPos;
 
         public bool isCatching = false;
+
         private void Awake()
         {
             PlayerContext.Instance.RegistPlayerCotroller(this);
