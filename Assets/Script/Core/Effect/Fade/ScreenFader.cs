@@ -31,6 +31,7 @@ namespace Kamatte.Core
 
         public void Init(float imageAlpha)
         {
+            GameModeChagneEvents.OnChanged += SetModeChangeFade;
             canvasGroup.alpha = imageAlpha;
             fadeImage.raycastTarget = false;
         }
@@ -48,6 +49,14 @@ namespace Kamatte.Core
             TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
             StartCoroutine(FadeCoroutine(1f, 0f, duration, tcs));
             return tcs.Task;
+        }
+
+        private void SetModeChangeFade(GameMode prev, GameMode next)    //  ゲームモード変更時のフェードをセット
+        {
+            if(next == GameMode.SwordCatch)
+            {
+                FadeOut(1f);
+            }
         }
 
         private void SetFadeColor(Color color)    //  フェードの色をセット

@@ -11,7 +11,7 @@ namespace Kamatte.SwordCatch
         {
             if (other.CompareTag("Sword") && !playerController.isCatching)
             {
-                Debug.Log("End", this.gameObject);
+                GameModeChagneEvents.RaiseChanged(GameMode.SwordCatch, GameMode.SwordCatch);
                 //SwordCatchEventBus.OnCatchSuccess();
                 EffectActAPI.Action(new EffectActKey(EffectActor.Player, EffectActTrigger.Hit, EffectActType.Blow));
             }
