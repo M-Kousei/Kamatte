@@ -12,6 +12,12 @@ namespace Kamatte.SwordCatch
         SwingerPersonal swingerPersonal;     //  ìÅêUÇËÇÃê´äi
 
         float swingTimer;     //  ìÅÇêUÇËâ∫ÇÎÇ∑Ç‹Ç≈ÇÃÉ^ÉCÉ}Å[
+        bool isTimerStop = false;
+
+        public bool IsTimerStop { 
+            get{ return isTimerStop; }
+            set { isTimerStop = value; }
+        }
 
         private void Awake()
         {
@@ -31,8 +37,10 @@ namespace Kamatte.SwordCatch
         }
         void Update()
         {
-            swingTimer -= Time.deltaTime;
-
+            if (!IsTimerStop)
+            {
+                swingTimer -= Time.deltaTime;
+            }
             switch (swingerPersonal)
             {
                 case SwingerPersonal.Chiken:
