@@ -11,6 +11,7 @@ namespace Kamatte.SwordCatch
         { SwordCatchAnimID_Swinger.SwingSword, Animator.StringToHash("IsSwingTime") },
         { SwordCatchAnimID_Swinger.SwingFast, Animator.StringToHash("IsSwingFast") },
         { SwordCatchAnimID_Swinger.SwingDelay, Animator.StringToHash("IsSwingDelay") },
+        { SwordCatchAnimID_Swinger.Sheath, Animator.StringToHash("IsHited") },
     };
 
         public static int GetAnimation(SwordCatchAnimID_Swinger animID) => boolHashes[animID];
