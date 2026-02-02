@@ -29,9 +29,13 @@ namespace Kamatte.Core
             }
         }
 
+        public void Regist(GameModeChagneExecutor executor)    //  ƒQ[ƒ€ƒ‚[ƒh•ÏX‚Ì“®ì‚ğ“o˜^
+        {
+            executor.AddStep(new FadeOutStep());
+        }
+        
         public void Init(float imageAlpha)
         {
-            GameModeChagneEvents.OnChanged += SetModeChangeFade;
             canvasGroup.alpha = imageAlpha;
             fadeImage.raycastTarget = false;
         }
