@@ -18,6 +18,7 @@ namespace Kamatte.SwordCatch
                 EffectActAPI.Action(new EffectActKey(EffectActor.Player, EffectActTrigger.Hit, EffectActType.Blow));
                 _swingTimeController.IsTimerStop = true;
                 _swingerAnimator.SetTrigger(SwordSwingerAnimHash.GetAnimation(SwordCatchAnimID_Swinger.Sheath));
+                //ServiceLocator.Resolve<IGameModeService>().RequestChange(GameMode.SwordCatch);
             }
             //  Endèàóù
         }

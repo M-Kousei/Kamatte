@@ -1,16 +1,17 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 using Kamatte.Core;
 
 public sealed class GameModeStateMachine    //  ゲームモード変更クラス
 {
     private readonly Dictionary<GameMode, GameMode[]> _allowedTransitions;
-
+    private readonly GameModeChanger _modeChanger;
     //    --  publicAPI
 
     public GameMode Current { get; private set; }
 
-    public GameModeStateMachine(GameMode initial)
+    public GameModeStateMachine(GameMode initial, GameModeChanger modeChanger)
     {
         Current = initial;
 
@@ -19,6 +20,8 @@ public sealed class GameModeStateMachine    //  ゲームモード変更クラス
             { GameMode.Title,   new[]{ GameMode.SwordCatch } },
             { GameMode.SwordCatch,  new[]{ GameMode.SwordCatch } },
         };
+
+        _modeChanger = modeChanger;
     }
 
     public bool CanTransition(GameMode next)    //  変更できるかを確認する
@@ -30,8 +33,7 @@ public sealed class GameModeStateMachine    //  ゲームモード変更クラス
     public void Transition(GameMode next)    //  変更する
     {
         var prev = Current;
+        _modeChanger.Chagne(Current, next);
         Current = next;
-
-        GameModeChagneEvents.RaiseChanged(prev, next);
     }
 }

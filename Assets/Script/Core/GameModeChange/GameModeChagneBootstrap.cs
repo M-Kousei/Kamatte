@@ -6,7 +6,9 @@ namespace Kamatte.Core
     {
         private void Awake()
         {
-            var stateMachine = new GameModeStateMachine(GameMode.Title);
+            GameModeChanger _changer = new GameModeChanger();
+
+            var stateMachine = new GameModeStateMachine(GameMode.Title, _changer);
 
             var service = new GameModeService(stateMachine);
 
