@@ -14,7 +14,7 @@ namespace Kamatte.Core
 
         public override void OnEnter()
         {
-            _playerHitBoxManager.EnableHitBox(HitBoxID.SwordCatch);
+            //_playerHitBoxManager.EnableHitBox(HitBoxID.SwordCatch);
         }
 
         public override void OnUpdate()
