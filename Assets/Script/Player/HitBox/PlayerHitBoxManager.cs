@@ -6,18 +6,17 @@ namespace Kamatte.Player
 {
     public class PlayerHitBoxMgr    //  ヒットボックス管理者
     {
+        Dictionary<HitBoxID, HitBoxData> _hitbBoxDictionary;    //  当たり判定一覧
+        HitBoxData _activeBox = null;    //  アクティブになってる当たり判定
         PlayerController controller;
-        public List<HitBoxData> _hitBoxes;                       //  ヒットボックスデータ
-        Dictionary<HitBoxID, HitBoxData> _hitbBoxDictionary;     //  当たり判定一覧
-        public Transform _playerHeadTF;                                   //  プレイヤーの頭
-        public HitBoxData _activeBox = null;                            //  アクティブになってる当たり判定
+        public Transform _playerHeadTF;    //  プレイヤーの頭
         Animator _swordSwingerAnimator;    //  アニメーター
-
         HitBoxID activeID = HitBoxID.Unknown;                       //  アクティブにするボックスID
         Vector3 StarEffectPos;
 
-
         float elapsed;    //  経過時間
+
+        public HitBoxData ActiveBox => _activeBox;
 
         public PlayerHitBoxMgr(PlayerHitBoxData hitBoxData, PlayerController playerController, Animator SwordSwingerAnim, Transform playerHead, Vector3 starEffectPos)    //  コンストラクタ
         {
@@ -54,6 +53,7 @@ namespace Kamatte.Player
                 _activeBox = null;
                 LogUtility.Log(LogPrefix.playerHitBoxController, $"{id} ヒットボックス無効", LogLevel.Info);
                 _swordSwingerAnimator.SetBool("isCatched", false);
+                controller.isCatching = false;
             }
         }
 
