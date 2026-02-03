@@ -58,12 +58,12 @@ namespace Kamatte.Player
         }
         void OnDrawGizmos()
         {
-            if (playerHitBoxMgr._activeBox == null)
+            if (playerHitBoxMgr.ActiveBox == null)
                 return;
 
             // íÜêSç¿ïWÇâåà
             Vector3 center = playerHitBoxMgr.ResolveCenter(playerHitBoxMgr._playerHeadTF);
-            Vector3 size = playerHitBoxMgr._activeBox.size;
+            Vector3 size = playerHitBoxMgr.ActiveBox.size;
 
             Gizmos.color = Color.red;
             Gizmos.matrix = Matrix4x4.TRS(center, playerHitBoxMgr._playerHeadTF.rotation, Vector3.one);
