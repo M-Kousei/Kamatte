@@ -16,6 +16,7 @@ namespace Kamatte.Player
         [SerializeField] Vector3 StarEffectPos;
 
         public bool isCatching = false;
+        public bool isHited = false;
 
         private void Awake()
         {
@@ -49,8 +50,11 @@ namespace Kamatte.Player
 
         void StartCatchAnimation()    //  刀を取る操作をした時の処理
         {
-            LogUtility.Log(LogPrefix.PlayerController, "刀取りモーション開始", LogLevel.Debug);
-            playerAnimator.SetTrigger(SwordCatchAnimHash_Player.GetAnimation(SwordCatchAnimID_Player.CatchSword));
+            if (!isHited)
+            {
+                LogUtility.Log(LogPrefix.PlayerController, "刀取りモーション開始", LogLevel.Debug);
+                playerAnimator.SetTrigger(SwordCatchAnimHash_Player.GetAnimation(SwordCatchAnimID_Player.CatchSword));
+            }
         }
         void OnDrawGizmos()
         {
@@ -65,9 +69,16 @@ namespace Kamatte.Player
             Gizmos.matrix = Matrix4x4.TRS(center, playerHitBoxMgr._playerHeadTF.rotation, Vector3.one);
             Gizmos.DrawWireCube(Vector3.zero, size);
         }
+
+        public void ActiveHitBox()
+        {
+            Debug.Log("ダチの車中で書いた歌詞が");
+            playerHitBoxMgr.EnableHitBox(HitBoxID.SwordCatch);
+        }
+
         public void EraseHitBox()
         {
-            Debug.Log("ナイトメアの時もあける目は");
+            Debug.Log("運ぶ現金");
             playerHitBoxMgr.DisableHitBox(HitBoxID.SwordCatch);
         }
     }

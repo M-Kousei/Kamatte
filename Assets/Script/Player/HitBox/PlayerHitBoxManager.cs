@@ -53,7 +53,6 @@ namespace Kamatte.Player
             {
                 _activeBox = null;
                 LogUtility.Log(LogPrefix.playerHitBoxController, $"{id} ヒットボックス無効", LogLevel.Info);
-                controller.isCatching = false;
                 _swordSwingerAnimator.SetBool("isCatched", false);
             }
         }
@@ -64,13 +63,14 @@ namespace Kamatte.Player
             var hits = Physics.OverlapBox(ResolveCenter(_playerHeadTF), _activeBox.size * 0.5f);    //  gpt とここから
             foreach (var h in hits)
             {
-                if (h.CompareTag("Sword"))
+                if (h.CompareTag("Sword") && !controller.isHited)
                 {
+                    Debug.Log(controller.isCatching);
+                    controller.isCatching = true;
                     EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.CatchSword), StarEffectPos);
 
                     LogUtility.Log(LogPrefix.playerHitBoxController, "白刃取り成功", LogLevel.Info);
                     SwordCatchEventBus.CatchSuccess();
-                    controller.isCatching = true;
                     _swordSwingerAnimator.SetBool("isCatched", true);
                 }
             }
