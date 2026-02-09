@@ -1,10 +1,10 @@
 using UnityEngine;
-using Kamatte.Player;
 using Kamatte.Core;
+using Kamatte.Player;
 
 namespace Kamatte.SwordCatch
 {
-    public class SwordHitNotifier : MonoBehaviour    //  “‚ª“–‚½‚Á‚½‚Ì‚ğ’Ê’m
+    public class SwordHitNotifier : MonoBehaviour    //  “‚ª“–‚½‚Á‚½‚Éˆ—‚ğ“®‚©‚·
     {
         [SerializeField] PlayerController _playerController;
         [SerializeField] SwingTimeController _swingTimeController;

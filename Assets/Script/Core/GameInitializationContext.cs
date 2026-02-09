@@ -8,6 +8,7 @@ namespace Kamatte.Core
         [SerializeField] PlayerController _playerController;    //  プレイヤーコントローラー
         [SerializeField] PlayerHitBoxData playerHitBoxData;     //  プレイヤーヒットボックス群
         [SerializeField] Transform PlayerHeadTF;                //  プレイヤーヘッドTF
+
         void Awake()
         {
             _playerController.Initialize(playerHitBoxData, PlayerHeadTF);    //  コントローラー初期化
