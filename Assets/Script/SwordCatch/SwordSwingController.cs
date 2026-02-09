@@ -18,17 +18,17 @@ namespace Kamatte.SwordCatch
 
             if(r == 0)
             {
-                Debug.Log("hey");
+                Debug.LogWarning("Normal");
                 _swingerAnimator.SetTrigger(SwordSwingerAnimHash.GetAnimation(SwordCatchAnimID_Swinger.SwingSword));
             }
             else if( r == 1)
             {
-                Debug.Log("hey upi");
+                Debug.LogWarning("Fast");
                 _swingerAnimator.SetTrigger(SwordSwingerAnimHash.GetAnimation(SwordCatchAnimID_Swinger.SwingFast));
             }
             else if (r == 2)
             {
-                Debug.Log("hey wht");
+                Debug.LogWarning("Delay");
                 _swingerAnimator.SetTrigger(SwordSwingerAnimHash.GetAnimation(SwordCatchAnimID_Swinger.SwingDelay));
             }
         }

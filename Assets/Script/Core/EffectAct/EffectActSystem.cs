@@ -7,7 +7,6 @@ namespace Kamatte.Core
     {
         EffectActCatalog _catalog;    //  演出用動きSOカタログ
         Dictionary<EffectActor, GameObject> _actorMap;
-
         private void Awake()
         {
             ServiceLocator.Register<IEffectActSystem>(this);    // ServiceLocator に自分を登録
