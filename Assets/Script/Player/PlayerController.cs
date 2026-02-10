@@ -15,6 +15,7 @@ namespace Kamatte.Player
 
         [SerializeField] Vector3 StarEffectPos;
 
+        public StateReader_SwordCatch StateReader { get; private set; }
         public bool isCatching = false;
         public bool isHited = false;
 
@@ -24,11 +25,13 @@ namespace Kamatte.Player
             playerAnimator = this.GetComponent<Animator>();
         }
 
-        public void Initialize(PlayerHitBoxData hitBoxData, Transform headTF)    //  ‰Šú‰»
+        public void Initialize(PlayerHitBoxData hitBoxData, Transform headTF, StateReader_SwordCatch reader)    //  ‰Šú‰»
         {
             playerUpperSM = new PlayerUpperSM();
             playerHitBoxMgr = new PlayerHitBoxMgr(hitBoxData, this, swordSwingAnim, headTF, StarEffectPos);
             playerUpperSMFactory = new PlayerUpperSMFactory(playerHitBoxMgr);
+
+            StateReader = reader;
 
             playerUpperSM.Initialize(playerUpperSMFactory);
         }
@@ -45,7 +48,7 @@ namespace Kamatte.Player
         void Update()
         {
             playerUpperSM.Update();
-            Debug.Log(27);
+            Debug.Log(StateReader.AcceseState().CatchState.IsCatchSword);
         }
 
         void StartCatchAnimation()    //  “‚ğæ‚é‘€ì‚ğ‚µ‚½‚Ìˆ—

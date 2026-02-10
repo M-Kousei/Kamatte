@@ -11,7 +11,7 @@ namespace Kamatte.Core
 
         void Awake()
         {
-            _playerController.Initialize(playerHitBoxData, PlayerHeadTF);    //  コントローラー初期化
+            //_playerController.Initialize(playerHitBoxData, PlayerHeadTF);    //  コントローラー初期化
         }
     }
 }

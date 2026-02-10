@@ -1,15 +1,14 @@
 using UnityEngine;
-using Kamatte.Core;
 
 namespace Kamatte.SwordCatch
 {
-    [RequireComponent(typeof(StateBootstrap_SwordCatch))]
+    [RequireComponent(typeof(StateHolderBootstrap_SwordCatch))]
     [DisallowMultipleComponent]
-    public class StateRunner_SwordCatch : MonoBehaviour
+    public class StateHolder_SwordCatch : MonoBehaviour
     {
-        public ISwordCatchState SwordCatchState { get; private set; }
+        public SwordCatchStateBase SwordCatchState { get; private set; }
 
-        public void Initialize(ISwordCatchState swordCatchState)    //  BootStrap‚©‚çŒÄ‚Î‚ê‚é‰Šú‰»
+        public void Initialize(SwordCatchStateBase swordCatchState)    //  BootStrap‚©‚çŒÄ‚Î‚ê‚é‰Šú‰»
         {
             SwordCatchState = swordCatchState;
         }
