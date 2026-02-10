@@ -2,31 +2,35 @@ using UnityEngine;
 
 namespace Kamatte.SwordCatch
 {
-    [RequireComponent(typeof(StateRunner_SwordCatch))]
+    [RequireComponent(typeof(StateHolder_SwordCatch))]
     [DisallowMultipleComponent]
-    public class StateBootstrap_SwordCatch : MonoBehaviour
+    public class StateHolderBootstrap_SwordCatch : MonoBehaviour
     {
-        [SerializeField] StateRunner_SwordCatch stateRunner;    //  Bootstrapでの初期化対象
+        SwordCatchState swordCatchState;    //  ソードキャッチゲームの状態を集約してるクラス、ランナーに渡される。
+        CatchState catchState;    //    キャッチの状況を持つクラス。
 
-        ISwordCatchState swordCatchState;    //  ソードキャッチゲームの状態を集約してるクラス、ランナーに渡される。
-        CatchState catchState;    //    キャッチの状況を持つクラス
+        [SerializeField] StateHolder_SwordCatch stateHolder;    //  ミニゲームのStateを集約してる、Reader層から呼ばれる。
+        StateReader_SwordCatch stateReader;    //  下位クラスからStateClassへのFacade、Judgeインスタンスからアクセス可否を判断する。
+        StateAccessJudge_SwordCatch accessJudge;    //  アクセスが適正かを判断する関数をReader層から呼ばれる。
 
         void Awake()
         {
-            if(stateRunner == null)
+            if(stateHolder == null)
             {
-                stateRunner =  GetComponent<StateRunner_SwordCatch>();
+                stateHolder =  GetComponent<StateHolder_SwordCatch>();
                 Debug.LogWarning("SwordCatchStateRunner isn't assigned");
             }
 
             catchState = new CatchState();
-            
             swordCatchState = new SwordCatchState(catchState);
+
+            accessJudge = new StateAccessJudge_SwordCatch();
+            stateReader = new StateReader_SwordCatch(stateHolder, accessJudge);
         }
 
         void Start()
         {
-            stateRunner.Initialize(swordCatchState);
+            stateHolder.Initialize(swordCatchState);
         }
     }
 }
