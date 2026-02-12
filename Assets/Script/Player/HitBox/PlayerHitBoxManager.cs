@@ -75,6 +75,7 @@ namespace Kamatte.Player
                     controller.isCatching = true;
                     EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.CatchSword), StarEffectPos);
 
+                    controller.PlayCatchSound();
                     LogUtility.Log(LogPrefix.playerHitBoxController, "îíênéÊÇËê¨å˜", LogLevel.Info);
                     SwordCatchEventBus.CatchSuccess();
                     _swordSwingerAnimator.SetBool("isCatched", true);

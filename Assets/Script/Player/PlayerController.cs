@@ -15,6 +15,9 @@ namespace Kamatte.Player
 
         [SerializeField] Vector3 StarEffectPos;
 
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip seClip;
+
         public StateReader_SwordCatch StateReader { get; private set; }
         public StateWriter_SwordCatch StateWriter { get; private set; }
         public bool isCatching = false;
@@ -55,6 +58,7 @@ namespace Kamatte.Player
 
         void StartCatchAnimation()    //  刀を取る操作をした時の処理
         {
+            audioSource.PlayOneShot(seClip);
             if (!isHited)
             {
                 LogUtility.Log(LogPrefix.PlayerController, "刀取りモーション開始", LogLevel.Debug);
@@ -85,6 +89,14 @@ namespace Kamatte.Player
         {
             Debug.Log("運ぶ現金");
             playerHitBoxMgr.DisableHitBox(HitBoxID.SwordCatch);
+        }
+        public void PlayCatchSound()
+        {
+            if (!StateReader.AcceseState().CatchState.IsCatchSword)
+            {
+                audioSource.PlayOneShot(seClip);
+                Debug.Log("リファクタ地獄");
+            }
         }
     }
 }

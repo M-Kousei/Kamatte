@@ -5,5 +5,6 @@ namespace Kamatte.UI.Buttons
         TitleButton,
         ShopButton,
         SwordCatchButton,
+        TutorialButton,
     }
 }
