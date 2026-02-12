@@ -11,6 +11,7 @@ namespace Kamatte.Core
         {
             // ƒ{ƒ^ƒ““o˜^‚È‚Ç
             buttonManager.Register(ButtonID.GoPlayButton, OnGoPlayPressed);
+            buttonManager.Register(ButtonID.Tutorial, OnGoPlayPressed);
 
             // UI‰Šúó‘Ô‚Ìİ’è‚È‚Ç
             buttonManager.EnableAllButtons();

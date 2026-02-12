@@ -67,7 +67,7 @@ namespace Kamatte.SwordCatch
             {
                 stateWriter.ChangeIsCatchState(false);
                 _swordSwingController.SwingSword();
-                swingTimer = 10;
+                swingTimer = Random.Range(3, 10);
             }
         }
         void ChikenUpdate()    //  ê´äiChikenÇÃUpdate
