@@ -6,5 +6,10 @@ namespace Kamatte.SwordCatch
 
         public bool IsCatchSword
         { get { return isCatchSword; } set { isCatchSword = value; } }
+
+        public void ChagneCatchSwordState(bool isCatchSwing)    //  振り下ろしをキャッチしたかのFlag、Writerから呼び出される
+        {
+            isCatchSword = isCatchSwing;
+        }
     }
 }

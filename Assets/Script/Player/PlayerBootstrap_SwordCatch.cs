@@ -14,7 +14,9 @@ namespace Kamatte.Player
 
         [SerializeField] StateHolder_SwordCatch stateHolder;    //  ミニゲームのStateを集約してる、Reader層から呼ばれる。
         StateReader_SwordCatch stateReader;    //  下位クラスからStateClassへのFacade、Judgeインスタンスからアクセス可否を判断する。
-        StateAccessJudge_SwordCatch accessJudge;    //  アクセスが適正かを判断する関数をReader層から呼ばれる。
+        StateReadJudge_SwordCatch readJudge;    //  アクセスが適正かを判断する関数をReader層から呼ばれる。
+        StateWriter_SwordCatch stateWriter;    //  下位クラスからStateを書き換えるためのFacade、judgeを通ったらState集約クラスの関数を使って書き換える
+        StateWriteJudge_SwordCatch writeJudge;    //  下位クラスからの書き換えが適正かを判断する、Witerにインスタンスを渡してそこから判断関数を呼び出してもらう
 
         void Awake()
         {
@@ -36,10 +38,12 @@ namespace Kamatte.Player
                 Debug.LogError("stateHolder isn't assigned in the Inspector");
             }
 
-            accessJudge = new StateAccessJudge_SwordCatch();
-            stateReader = new StateReader_SwordCatch(stateHolder, accessJudge);
+            readJudge = new StateReadJudge_SwordCatch();
+            stateReader = new StateReader_SwordCatch(stateHolder, readJudge);
+            writeJudge = new StateWriteJudge_SwordCatch();
+            stateWriter = new StateWriter_SwordCatch(stateHolder, writeJudge);
 
-            playerController.Initialize(playerHitBoxData, playerHeadTF, stateReader);    //  Controllerの性質上Awakeで初期化
+            playerController.Initialize(playerHitBoxData, playerHeadTF, stateReader, stateWriter);    //  Controllerの性質上Awakeで初期化
         }
 
         void Start()

@@ -11,7 +11,7 @@ namespace Kamatte.SwordCatch
 
         [SerializeField] StateHolder_SwordCatch stateHolder;    //  ミニゲームのStateを集約してる、Reader層から呼ばれる。
         StateReader_SwordCatch stateReader;    //  下位クラスからStateClassへのFacade、Judgeインスタンスからアクセス可否を判断する。
-        StateAccessJudge_SwordCatch accessJudge;    //  アクセスが適正かを判断する関数をReader層から呼ばれる。
+        StateReadJudge_SwordCatch accessJudge;    //  アクセスが適正かを判断する関数をReader層から呼ばれる。
 
         void Awake()
         {
@@ -24,7 +24,7 @@ namespace Kamatte.SwordCatch
             catchState = new CatchState();
             swordCatchState = new SwordCatchState(catchState);
 
-            accessJudge = new StateAccessJudge_SwordCatch();
+            accessJudge = new StateReadJudge_SwordCatch();
             stateReader = new StateReader_SwordCatch(stateHolder, accessJudge);
         }
 

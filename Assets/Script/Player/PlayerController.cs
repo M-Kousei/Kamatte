@@ -6,8 +6,8 @@ namespace Kamatte.Player
 {
     public class PlayerController : MonoBehaviour    //  プレイヤー制御クラス
     {
-        [SerializeField] PlayerStatus playerStatus;   //  プレイヤーのステータス
-        [SerializeField] Animator swordSwingAnim;   //  プレイヤーのステータス
+        [SerializeField] PlayerStatus playerStatus;    //  プレイヤーのステータス
+        [SerializeField] Animator swordSwingAnim;    //  プレイヤーのステータス
         PlayerUpperSMFactory playerUpperSMFactory;    //  プレイヤーの上位ファクトリー
         PlayerUpperSM playerUpperSM;                  //  プレイヤー上位ステートマシーン
         PlayerHitBoxMgr playerHitBoxMgr;              //  プレイヤーヒットボックス管理クラス
@@ -16,6 +16,7 @@ namespace Kamatte.Player
         [SerializeField] Vector3 StarEffectPos;
 
         public StateReader_SwordCatch StateReader { get; private set; }
+        public StateWriter_SwordCatch StateWriter { get; private set; }
         public bool isCatching = false;
         public bool isHited = false;
 
@@ -25,13 +26,14 @@ namespace Kamatte.Player
             playerAnimator = this.GetComponent<Animator>();
         }
 
-        public void Initialize(PlayerHitBoxData hitBoxData, Transform headTF, StateReader_SwordCatch reader)    //  初期化
+        public void Initialize(PlayerHitBoxData hitBoxData, Transform headTF, StateReader_SwordCatch reader, StateWriter_SwordCatch writer)    //  初期化
         {
             playerUpperSM = new PlayerUpperSM();
             playerHitBoxMgr = new PlayerHitBoxMgr(hitBoxData, this, swordSwingAnim, headTF, StarEffectPos);
             playerUpperSMFactory = new PlayerUpperSMFactory(playerHitBoxMgr);
 
             StateReader = reader;
+            StateWriter = writer;
 
             playerUpperSM.Initialize(playerUpperSMFactory);
         }
