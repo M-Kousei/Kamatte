@@ -1,0 +1,28 @@
+using UnityEngine;
+
+namespace Kamatte.SwordCatch
+{
+    public class StateWriter_SwordCatch    //  判断層を通って、状態を持つクラスにアクセスする関数を持つ
+    {
+        StateHolder_SwordCatch stateHolder;    //  SwordCatchの状態データを集約してるクラス、このクラスに書く
+        StateWriteJudge_SwordCatch writeJudge;    //   //  まだ判断条件書ける環境じゃないから素通りさせてるけど、後から条件を追記したい
+
+        public StateWriter_SwordCatch(StateHolder_SwordCatch holder, StateWriteJudge_SwordCatch judge)    //  StateHolderBootstrap_SwordCatchから呼ばれる
+        {
+            stateHolder = holder;
+            writeJudge = judge;
+        }
+
+        public void ChangeIsCatchState(bool isCatchSwing)    //  ソードキャッチゲームの状態に書き込む
+        {
+            if (writeJudge.IsVaildAccess())
+            {
+                stateHolder.SwordCatchState.CatchState.ChagneCatchSwordState(isCatchSwing);
+            }
+            else
+            {
+                Debug.LogWarning("適正でないアクセス検知");
+            }
+        }
+    }
+}
