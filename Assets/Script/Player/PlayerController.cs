@@ -29,7 +29,7 @@ namespace Kamatte.Player
         public void Initialize(PlayerHitBoxData hitBoxData, Transform headTF, StateReader_SwordCatch reader, StateWriter_SwordCatch writer)    //  èâä˙âª
         {
             playerUpperSM = new PlayerUpperSM();
-            playerHitBoxMgr = new PlayerHitBoxMgr(hitBoxData, this, swordSwingAnim, headTF, StarEffectPos);
+            playerHitBoxMgr = new PlayerHitBoxMgr(hitBoxData, this, swordSwingAnim, headTF, StarEffectPos, writer);
             playerUpperSMFactory = new PlayerUpperSMFactory(playerHitBoxMgr);
 
             StateReader = reader;
