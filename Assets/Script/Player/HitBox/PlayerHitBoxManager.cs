@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Kamatte.Core;
+using Kamatte.SwordCatch;
 
 namespace Kamatte.Player
 {
@@ -14,11 +15,13 @@ namespace Kamatte.Player
         HitBoxID activeID = HitBoxID.Unknown;                       //  アクティブにするボックスID
         Vector3 StarEffectPos;
 
+        StateWriter_SwordCatch stateWriter;
+
         float elapsed;    //  経過時間
 
         public HitBoxData ActiveBox => _activeBox;
 
-        public PlayerHitBoxMgr(PlayerHitBoxData hitBoxData, PlayerController playerController, Animator SwordSwingerAnim, Transform playerHead, Vector3 starEffectPos)    //  コンストラクタ
+        public PlayerHitBoxMgr(PlayerHitBoxData hitBoxData, PlayerController playerController, Animator SwordSwingerAnim, Transform playerHead, Vector3 starEffectPos, StateWriter_SwordCatch writer)    //  コンストラクタ
         {
             _hitbBoxDictionary = new Dictionary<HitBoxID, HitBoxData>();
             foreach (var box in hitBoxData.playerHitBoxes)
@@ -29,6 +32,8 @@ namespace Kamatte.Player
             _swordSwingerAnimator = SwordSwingerAnim;
             _playerHeadTF = playerHead;
             StarEffectPos = starEffectPos;
+
+            stateWriter = writer;
         }
 
         void Initalize()    //  初期化
@@ -66,6 +71,7 @@ namespace Kamatte.Player
                 if (h.CompareTag("Sword") && !controller.isHited)
                 {
                     Debug.Log(controller.isCatching);
+                    stateWriter.ChangeIsCatchState(true);
                     controller.isCatching = true;
                     EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.CatchSword), StarEffectPos);
 
