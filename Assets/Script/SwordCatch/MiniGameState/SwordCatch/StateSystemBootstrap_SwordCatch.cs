@@ -4,7 +4,7 @@ namespace Kamatte.SwordCatch
 {
     [RequireComponent(typeof(StateHolder_SwordCatch))]
     [DisallowMultipleComponent]
-    public class StateHolderBootstrap_SwordCatch : MonoBehaviour
+    public class StateSystemBootstrap_SwordCatch : MonoBehaviour
     {
         SwordCatchState swordCatchState;    //  ソードキャッチゲームの状態を集約してるクラス、ランナーに渡される。
         CatchState catchState;    //    キャッチの状況を持つクラス。

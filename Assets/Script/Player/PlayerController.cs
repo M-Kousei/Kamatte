@@ -61,7 +61,8 @@ namespace Kamatte.Player
             if (!isHited)
             {
                 LogUtility.Log(LogPrefix.PlayerController, "刀取りモーション開始", LogLevel.Debug);
-                playerAnimator.SetTrigger(SwordCatchAnimHash_Player.GetAnimation(SwordCatchAnimID_Player.CatchSword));
+                //playerAnimator.SetTrigger(SwordCatchAnimHash_Player.GetAnimation(SwordCatchAnimID_Player.CatchSword));
+                ServiceLocator.Resolve<AnimParamFacadeBase>().PlayerParam.PlayerParam_Catch.SetTrigger();
             }
         }
         void OnDrawGizmos()
