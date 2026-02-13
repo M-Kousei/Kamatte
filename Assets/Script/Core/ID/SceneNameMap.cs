@@ -8,7 +8,7 @@ namespace Kamatte.Core
         private static readonly Dictionary<SceneID, string> map = new()
     {
         { SceneID.Title, "TitleScene" },
-        { SceneID.Shop, "SwordCatch" },
+        { SceneID.Shop, "SwordCatchScene" },
     };
 
         public static string GetName(SceneID id)
