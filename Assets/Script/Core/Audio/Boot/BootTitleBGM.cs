@@ -8,7 +8,7 @@ namespace Kamatte.Core
 
         void Start()
         {
-            //BGMManager.Instance.Play(_bootBGM);
+            BGMManager.Instance.Play(_bootBGM);
         }
     }
 }
