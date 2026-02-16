@@ -23,7 +23,6 @@ namespace Kamatte.SwordCatch
         AnimParamFacade_SwordCatch paramFacade;
         AnimParam_Player playerParam;
 
-
         void Awake()
         {
             BuildDictionary();

@@ -3,7 +3,7 @@ using UnityEngine;
 namespace Kamatte.Core
 {
     [CreateAssetMenu(fileName = "BGMData", menuName = "Audio/BGM Data")]
-    public sealed class BGMData : ScriptableObject
+    public class BGMData : ScriptableObject
     {
         [Header("ê‡ñæ")]
         [SerializeField]
