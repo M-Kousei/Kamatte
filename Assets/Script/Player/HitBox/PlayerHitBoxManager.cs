@@ -11,17 +11,18 @@ namespace Kamatte.Player
         HitBoxData _activeBox = null;    //  アクティブになってる当たり判定
         PlayerController controller;
         public Transform _playerHeadTF;    //  プレイヤーの頭
-        Animator _swordSwingerAnimator;    //  アニメーター
         HitBoxID activeID = HitBoxID.Unknown;                       //  アクティブにするボックスID
         Vector3 StarEffectPos;
 
         StateWriter_SwordCatch stateWriter;
+        StateReader_SwordCatch stateRead;
 
         float elapsed;    //  経過時間
 
         public HitBoxData ActiveBox => _activeBox;
 
-        public PlayerHitBoxMgr(PlayerHitBoxData hitBoxData, PlayerController playerController, Animator SwordSwingerAnim, Transform playerHead, Vector3 starEffectPos, StateWriter_SwordCatch writer)    //  コンストラクタ
+        public PlayerHitBoxMgr
+            (PlayerHitBoxData hitBoxData, PlayerController playerController, Animator SwordSwingerAnim, Transform playerHead, Vector3 starEffectPos, StateReader_SwordCatch read, StateWriter_SwordCatch writer)    //  コンストラクタ
         {
             _hitbBoxDictionary = new Dictionary<HitBoxID, HitBoxData>();
             foreach (var box in hitBoxData.playerHitBoxes)
@@ -57,8 +58,6 @@ namespace Kamatte.Player
             {
                 _activeBox = null;
                 LogUtility.Log(LogPrefix.playerHitBoxController, $"{id} ヒットボックス無効", LogLevel.Info);
-                _swordSwingerAnimator.SetBool("isCatched", false);
-                controller.isCatching = false;
             }
         }
 
@@ -68,17 +67,15 @@ namespace Kamatte.Player
             var hits = Physics.OverlapBox(ResolveCenter(_playerHeadTF), _activeBox.size * 0.5f);    //  gpt とここから
             foreach (var h in hits)
             {
-                if (h.CompareTag("Sword") && !controller.isHited)
+                if (h.CompareTag("Sword") && !stateRead.AcceseState().CatchState.IsCatchSword)
                 {
-                    Debug.Log(controller.isCatching);
                     stateWriter.ChangeIsCatchState(true);
-                    controller.isCatching = true;
                     EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.CatchSword), StarEffectPos);
 
                     controller.PlayCatchSound();
                     LogUtility.Log(LogPrefix.playerHitBoxController, "白刃取り成功", LogLevel.Info);
                     SwordCatchEventBus.CatchSuccess();
-                    _swordSwingerAnimator.SetBool("isCatched", true);
+                    ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.IsCatch.SetBool(true);
                 }
             }
         }

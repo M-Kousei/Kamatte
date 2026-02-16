@@ -12,7 +12,6 @@ namespace Kamatte.SwordCatch
             base(animator, animParamRead, animParamSet)
         {
             PlayerParam_Catch = ctx.PlayerParam_Catch;
-
         }
     }
 }
