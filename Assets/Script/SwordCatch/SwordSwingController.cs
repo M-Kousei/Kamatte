@@ -14,22 +14,22 @@ namespace Kamatte.SwordCatch
         public void SwingSword()    //  刀振り下ろし
         {
             LogUtility.Log(LogPrefix.SwingSwordController, "刀振り下ろしアニメーション開始", LogLevel.Debug);
-            int r = Random.Range(0, 3);
+            int r = Random.Range(0, 2);
 
             if(r == 0)
             {
                 Debug.LogWarning("Normal");
-                _swingerAnimator.SetTrigger(SwordSwingerAnimHash.GetAnimation(SwordCatchAnimID_Swinger.SwingSword));
+                ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.NormalSwing.SetTrigger();
             }
             else if( r == 1)
             {
+                ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.FastSwing.SetTrigger();
                 Debug.LogWarning("Fast");
-                _swingerAnimator.SetTrigger(SwordSwingerAnimHash.GetAnimation(SwordCatchAnimID_Swinger.SwingFast));
             }
             else if (r == 2)
             {
                 Debug.LogWarning("Delay");
-                _swingerAnimator.SetTrigger(SwordSwingerAnimHash.GetAnimation(SwordCatchAnimID_Swinger.SwingDelay));
+                ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.DelaySwing.SetTrigger();
             }
         }
     }

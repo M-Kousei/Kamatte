@@ -20,8 +20,8 @@ namespace Kamatte.Player
 
         public StateReader_SwordCatch StateReader { get; private set; }
         public StateWriter_SwordCatch StateWriter { get; private set; }
-        public bool isCatching = false;
         public bool isHited = false;
+        bool isSound= false;
 
         private void Awake()
         {
@@ -32,7 +32,7 @@ namespace Kamatte.Player
         public void Initialize(PlayerHitBoxData hitBoxData, Transform headTF, StateReader_SwordCatch reader, StateWriter_SwordCatch writer)    //  初期化
         {
             playerUpperSM = new PlayerUpperSM();
-            playerHitBoxMgr = new PlayerHitBoxMgr(hitBoxData, this, swordSwingAnim, headTF, StarEffectPos, writer);
+            playerHitBoxMgr = new PlayerHitBoxMgr(hitBoxData, this, swordSwingAnim, headTF, StarEffectPos, reader, writer);
             playerUpperSMFactory = new PlayerUpperSMFactory(playerHitBoxMgr);
 
             StateReader = reader;
@@ -89,11 +89,13 @@ namespace Kamatte.Player
         {
             Debug.Log("運ぶ現金");
             playerHitBoxMgr.DisableHitBox(HitBoxID.SwordCatch);
+            isSound = false;
         }
         public void PlayCatchSound()
         {
-            if (!StateReader.AcceseState().CatchState.IsCatchSword)
+            if (StateReader.AcceseState().CatchState.IsCatchSword && !isSound)
             {
+                isSound = true;
                 audioSource.PlayOneShot(seClip);
                 Debug.Log("リファクタ地獄");
             }

@@ -10,17 +10,17 @@ namespace Kamatte.SwordCatch
         [SerializeField] SwingTimeController _swingTimeController;
         [SerializeField] Animator _swingerAnimator;
         [SerializeField] StateHolder_SwordCatch stateHolder;
+
         void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Sword") && !stateHolder.SwordCatchState.CatchState.IsCatchSword)/* && !_playerController.isCatching*/
             {
                 _playerController.EraseHitBox();
                 _playerController.isHited = true;
-                Debug.Log(_playerController.isCatching);
                 //GameModeChagneEvents.RaiseChanged(GameMode.SwordCatch, GameMode.SwordCatch);
                 EffectActAPI.Action(new EffectActKey(EffectActor.Player, EffectActTrigger.Hit, EffectActType.Blow));
                 _swingTimeController.IsTimerStop = true;
-                _swingerAnimator.SetTrigger(SwordSwingerAnimHash.GetAnimation(SwordCatchAnimID_Swinger.Sheath));
+                ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.IsHited.SetBool(true);
                 //ServiceLocator.Resolve<IGameModeService>().RequestChange(GameMode.SwordCatch);
             }
             //  Endèàóù

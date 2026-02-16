@@ -22,6 +22,7 @@ namespace Kamatte.SwordCatch
 
         AnimParamFacade_SwordCatch paramFacade;
         AnimParam_Player playerParam;
+        AnimParam_Swinger swingerParam;
 
         void Awake()
         {
@@ -31,8 +32,9 @@ namespace Kamatte.SwordCatch
             paramSet = new AnimParamSet();
 
             GeneratePlayerSystem();
+            GenerateSwingerSystem();
 
-            paramFacade = new(playerParam);
+            paramFacade = new(playerParam, swingerParam);
 
             ServiceLocator.Register<AnimParamFacadeBase>(paramFacade);
         }
@@ -61,6 +63,19 @@ namespace Kamatte.SwordCatch
             PlayerAnimParamContext ctx = new PlayerAnimParamContext(catchParam);
 
             playerParam = new AnimParam_Player(animatorMap[AnimatorRole.Player], paramRead, paramSet,ctx);
+        }
+
+        void GenerateSwingerSystem()
+        {
+            SwingerParam_NormalSwing normalSwingParam = new(animatorMap[AnimatorRole.SwordSwinger], "NormalSwing");
+            SwingerParam_FastSwing fastSwingParam = new(animatorMap[AnimatorRole.SwordSwinger], "FastSwing");
+            SwingerParam_DelaySwing delaySwingParam = new(animatorMap[AnimatorRole.SwordSwinger], "DelaySwing");
+            SwingerParam_IsHited isHitedParam = new(animatorMap[AnimatorRole.SwordSwinger], "IsHited");
+            SwingerParam_IsCatch isCatchParam = new(animatorMap[AnimatorRole.SwordSwinger], "IsCatch");
+
+            SwingerAnimParamContext ctx = new(normalSwingParam, fastSwingParam, delaySwingParam, isHitedParam, isCatchParam);
+
+            swingerParam = new AnimParam_Swinger(animatorMap[AnimatorRole.SwordSwinger], paramRead, paramSet, ctx);
         }
     }
 }
