@@ -17,8 +17,6 @@ namespace Kamatte.Player
         StateWriter_SwordCatch stateWriter;
         StateReader_SwordCatch stateRead;
 
-        float elapsed;    //  Œo‰ßŽžŠÔ
-
         public HitBoxData ActiveBox => _activeBox;
 
         public PlayerHitBoxMgr
@@ -30,7 +28,6 @@ namespace Kamatte.Player
                 _hitbBoxDictionary[box.id] = box;
             }
             controller = playerController;
-            _swordSwingerAnimator = SwordSwingerAnim;
             _playerHeadTF = playerHead;
             StarEffectPos = starEffectPos;
 

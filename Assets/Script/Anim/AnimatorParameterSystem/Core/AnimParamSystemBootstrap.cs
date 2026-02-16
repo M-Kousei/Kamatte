@@ -5,41 +5,41 @@ using Kamatte.Player;
 
 namespace Kamatte.SwordCatch
 {
-    public class AnimParamSystemBootstrap_SwordCatch : MonoBehaviour    //  
+    public class AnimParamSystemBootstrap_SwordCatch : MonoBehaviour    //  アニメーターのパラメーターをいじるシステムをServiceLocatorに登録する。
     {
         [System.Serializable]
-        class AnimatorBinding    //  
+        class AnimatorBinding    //  インスペクターに表示するためのKVP
         {
             public AnimatorRole role;
             public Animator animator;
         }
         
-        [SerializeField] List<AnimatorBinding> animatorBindings;
-        Dictionary<AnimatorRole, Animator> animatorMap;
+        [SerializeField] List<AnimatorBinding> animatorBindings;    //  インスペクターにバインディングを表示するためのリスト
+        Dictionary<AnimatorRole, Animator> animatorMap;    //  インスペクター用から処理用の辞書に変える
 
-        AnimParamRead paramRead;
-        AnimParamSet paramSet;
+        AnimParamRead paramRead;    //  未使用(消したらエラー出る)
+        AnimParamSet paramSet;    //  未使用(消したらエラー出る)
 
-        AnimParamFacade_SwordCatch paramFacade;
-        AnimParam_Player playerParam;
-        AnimParam_Swinger swingerParam;
+        AnimParamFacade_SwordCatch paramFacade;    //  SLに登録するFacade
+        AnimParam_Player playerParam;    //  プレイヤーのパラメータを集約してるクラス
+        AnimParam_Swinger swingerParam;    //  刀振りのパラメータを集約してるクラス
 
         void Awake()
         {
-            BuildDictionary();
+            BuildDictionary();    //  インスペクター表示用Listから処理用辞書を構築
             
             paramRead = new AnimParamRead();
             paramSet = new AnimParamSet();
 
-            GeneratePlayerSystem();
-            GenerateSwingerSystem();
+            GeneratePlayerSystem();    //  プレイヤーのパラーメーターシステム初期化
+            GenerateSwingerSystem();    //  刀振りのパラメーターシステム初期化
 
-            paramFacade = new(playerParam, swingerParam);
+            paramFacade = new AnimParamFacade_SwordCatch(playerParam, swingerParam);
 
-            ServiceLocator.Register<AnimParamFacadeBase>(paramFacade);
+            ServiceLocator.Register<AnimParamFacadeBase>(paramFacade);    //  SLに登録
         }
 
-        void BuildDictionary()
+        void BuildDictionary()    //  インスペクター表示用Listから処理速度向上のためDictionaryを構築する
         {
             animatorMap = new Dictionary<AnimatorRole, Animator>();
 
@@ -56,7 +56,7 @@ namespace Kamatte.SwordCatch
             }
         }
 
-        void GeneratePlayerSystem()
+        void GeneratePlayerSystem()    //  各パラメータークラスを初期化して集約クラスに渡す
         {
             PlayerParam_Catch catchParam = new(animatorMap[AnimatorRole.Player], "Catch");
             
@@ -65,7 +65,7 @@ namespace Kamatte.SwordCatch
             playerParam = new AnimParam_Player(animatorMap[AnimatorRole.Player], paramRead, paramSet,ctx);
         }
 
-        void GenerateSwingerSystem()
+        void GenerateSwingerSystem()  //  各パラメータークラスを初期化して集約クラスに渡す
         {
             SwingerParam_NormalSwing normalSwingParam = new(animatorMap[AnimatorRole.SwordSwinger], "NormalSwing");
             SwingerParam_FastSwing fastSwingParam = new(animatorMap[AnimatorRole.SwordSwinger], "FastSwing");

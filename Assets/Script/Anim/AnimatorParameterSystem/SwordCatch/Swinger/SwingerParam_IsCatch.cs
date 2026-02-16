@@ -3,7 +3,7 @@ using Kamatte.Core;
 
 namespace Kamatte.SwordCatch
 {
-    public class SwingerParam_IsCatch : AnimParamBase
+    public class SwingerParam_IsCatch : AnimParamBase    //  刀がキャッチされたかのフラグ
     {
         public SwingerParam_IsCatch(Animator animator, string paramName) : base(animator, paramName) { }
 
