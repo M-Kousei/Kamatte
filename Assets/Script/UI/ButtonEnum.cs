@@ -3,5 +3,5 @@ public enum ButtonID    //  ※※  ボタンのオブジェクト名の頭文字だけ大文字で要素
     GoPlayButton,    //  プレイボタン
     GoRootButton,
     GO,
-    Tutorial
+    TutorialButton,
 }

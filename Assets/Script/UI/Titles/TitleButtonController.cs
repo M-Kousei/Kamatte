@@ -5,13 +5,18 @@ namespace Kamatte.Core
     public class TitleButtonController : MonoBehaviour, IUIController    //  タイトル画面のボタンに反応を入れる
     {
         [SerializeField] private ButtonManager buttonManager;
+        [SerializeField] private GameObject TutorialRoot;
 
+        void Awake()
+        {
+            Debug.Log(21, this.gameObject);
+        }
         //  ボタン初期化
         public void Init()
         {
             // ボタン登録など
             buttonManager.Register(ButtonID.GoPlayButton, OnGoPlayPressed);
-            buttonManager.Register(ButtonID.Tutorial, OnGoPlayPressed);
+            buttonManager.Register(ButtonID.TutorialButton, DisplayTutorial);
 
             // UI初期状態の設定など
             buttonManager.EnableAllButtons();
@@ -33,6 +38,11 @@ namespace Kamatte.Core
             buttonManager.SetInteractable(ButtonID.GoPlayButton, false);   
             await ScreenFader.Instance.FadeOut(1f);
             SceneUtility.LoadScene(SceneNameMap.GetName(SceneID.Shop));
+        }
+
+        void DisplayTutorial()
+        {
+            TutorialRoot.SetActive(true);
         }
 
         void OnExitPressed()
