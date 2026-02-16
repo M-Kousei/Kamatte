@@ -3,7 +3,7 @@ using Kamatte.Core;
 
 namespace Kamatte.SwordCatch
 {
-    public sealed class AnimParam_Swinger : AnimParamCollectionBase    //  AnimaParameterHubに集約される
+    public sealed class AnimParam_Swinger : AnimParamCollectionBase    //  各パラメーターを集約しているクラス
     {
         public SwingerParam_NormalSwing  NormalSwing{ get; }
         public SwingerParam_FastSwing  FastSwing{ get; }

@@ -4,7 +4,7 @@ using Kamatte.Player;
 
 namespace Kamatte.SwordCatch
 {
-    public sealed class AnimParam_Player : AnimParamCollectionBase    //  AnimaParameterHubに集約される
+    public sealed class AnimParam_Player : AnimParamCollectionBase    //  各パラメーターを集約しているクラス
     {
         public PlayerParam_Catch PlayerParam_Catch { get; }
         public AnimParam_Player
