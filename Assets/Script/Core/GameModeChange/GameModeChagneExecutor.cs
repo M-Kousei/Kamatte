@@ -1,22 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Kamatte.Core;
 
-public sealed class GameModeChagneExecutor    //  ゲームモード変更時に動く関数を保持してるクラス
+namespace Kamatte.Core
 {
-    private readonly List<IGameModeChangeStep> _steps = new List<IGameModeChangeStep>();
-
-    public void AddStep(IGameModeChangeStep step)    //  関数追加
+    public sealed class GameModeChagneExecutor    //  ゲームモード変更時に動く関数を保持してるクラス
     {
-        _steps.Add(step);
-    }
+        private readonly List<IGameModeChangeStep> _steps = new List<IGameModeChangeStep>();
 
-    public IEnumerator Execute(GameMode prev, GameMode next)    //  実行
-    {
-        foreach (IGameModeChangeStep step in _steps.OrderBy(s => s.Order))
+        public void AddStep(IGameModeChangeStep step)    //  関数追加
         {
-            yield return step.Execute(prev, next);
+            _steps.Add(step);
+        }
+
+        public IEnumerator Execute(GameMode prev, GameMode next)    //  実行
+        {
+            foreach (IGameModeChangeStep step in _steps.OrderBy(s => s.Order))
+            {
+                yield return step.Execute(prev, next);
+            }
         }
     }
 }

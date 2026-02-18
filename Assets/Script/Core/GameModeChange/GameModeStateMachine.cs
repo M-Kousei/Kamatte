@@ -1,13 +1,13 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
 using Kamatte.Core;
 
 public sealed class GameModeStateMachine    //  ゲームモード変更クラス
 {
     private readonly Dictionary<GameMode, GameMode[]> _allowedTransitions;
     private readonly GameModeChanger _modeChanger;
-    //    --  publicAPI
+    
+    //  --  publicAPI
 
     public GameMode Current { get; private set; }
 

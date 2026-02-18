@@ -73,7 +73,6 @@ namespace Kamatte.Player
                     PlayrRandomEffect();
                     stateWriter.ChangeCatchState(true);
                     stateWriter.AddCatchSuccessCnt();
-                    Debug.Log(stateRead.AcceseState().CatchState.CatchSuccessTime);
                     EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.CatchSword), StarEffectPos);
 
                     controller.PlayCatchSound();

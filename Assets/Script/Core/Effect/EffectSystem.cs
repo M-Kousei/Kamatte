@@ -24,7 +24,6 @@ namespace Kamatte.Core
 
         public void Play(EffectKey key, Vector3 position)    //  エフェクト再生
         {
-            Debug.Log("犬と同じ");
             // 定義解決
             var definition = catalog.Get(key);
             if (definition == null)
