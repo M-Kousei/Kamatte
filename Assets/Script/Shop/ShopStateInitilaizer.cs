@@ -36,7 +36,7 @@ namespace Kamatte.Core
 
         protected override void InitOthers()    //  その他任意の処理（必要に応じて）
         {
-            swordSwingController = new SwordSwingController(swingerAnimator);
+            swordSwingController = new SwordSwingController();
             swingTimeController.Initialize(swordSwingController);
         }
     }

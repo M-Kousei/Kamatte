@@ -96,7 +96,7 @@ namespace Kamatte.Player
             if (StateReader.AcceseState().CatchState.IsCatchSword && !isSound)
             {
                 isSound = true;
-                audioSource.PlayOneShot(seClip);
+                audioSource.PlayOneShot(seClip, 0.6f);
                 Debug.Log("リファクタ地獄");
             }
         }

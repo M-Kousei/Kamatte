@@ -16,6 +16,7 @@ namespace Kamatte.SwordCatch
             if (other.CompareTag("Sword") && !stateHolder.SwordCatchState.CatchState.IsCatchSword)/* && !_playerController.isCatching*/
             {
                 _playerController.EraseHitBox();
+                stateHolder.SwordCatchState.HitSwingState.ChagneHitSwordState(true);
                 _playerController.isHited = true;
                 //GameModeChagneEvents.RaiseChanged(GameMode.SwordCatch, GameMode.SwordCatch);
                 EffectActAPI.Action(new EffectActKey(EffectActor.Player, EffectActTrigger.Hit, EffectActType.Blow));

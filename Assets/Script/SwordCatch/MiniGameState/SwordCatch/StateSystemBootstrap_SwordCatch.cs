@@ -8,6 +8,7 @@ namespace Kamatte.SwordCatch
     {
         SwordCatchState swordCatchState;    //  ソードキャッチゲームの状態を集約してるクラス、ランナーに渡される。
         CatchState catchState;    //    キャッチの状況を持つクラス。
+        HitSwingState hitSwingState;    //    キャッチの状況を持つクラス。
 
         [SerializeField] StateHolder_SwordCatch stateHolder;    //  ミニゲームのStateを集約してる、Reader層から呼ばれる。
         StateReader_SwordCatch stateReader;    //  下位クラスからStateClassへのFacade、Judgeインスタンスからアクセス可否を判断する。
@@ -22,7 +23,8 @@ namespace Kamatte.SwordCatch
             }
 
             catchState = new CatchState();
-            swordCatchState = new SwordCatchState(catchState);
+            hitSwingState = new HitSwingState();
+            swordCatchState = new SwordCatchState(catchState, hitSwingState);
 
             accessJudge = new StateReadJudge_SwordCatch();
             stateReader = new StateReader_SwordCatch(stateHolder, accessJudge);

@@ -1,5 +1,4 @@
 using Unity.VisualScripting;
-using UnityEngine;
 
 namespace Kamatte.Core
 {
@@ -11,7 +10,6 @@ namespace Kamatte.Core
 
         public void Chagne(GameMode prev, GameMode next)    //  ゲームモード変更
         {
-            Debug.Log("来てる彼女のパジャマ");
             GameModeChagneExecutor executor = new GameModeChagneExecutor();
 
             ScreenFader.Instance.Regist(executor);

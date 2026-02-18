@@ -13,11 +13,27 @@ namespace Kamatte.SwordCatch
             writeJudge = judge;
         }
 
-        public void ChangeIsCatchState(bool isCatchSwing)    //  ソードキャッチゲームの状態に書き込む
+        public void AddCatchSuccessCnt()    //  CatchClassの白刃取り成功回数をインクリメントする
+        {
+            stateHolder.SwordCatchState.CatchState.AddSuccessCount();
+        }
+
+        public void ChangeCatchState(bool isCatchSwing)    //  ソードキャッチゲームの状態に書き込む
         {
             if (writeJudge.IsVaildAccess())
             {
                 stateHolder.SwordCatchState.CatchState.ChagneCatchSwordState(isCatchSwing);
+            }
+            else
+            {
+                Debug.LogWarning("適正でないアクセス検知");
+            }
+        }
+        public void ChangeHitSwingState(bool isHitSwing)    //  ソードキャッチゲームの状態に書き込む
+        {
+            if (writeJudge.IsVaildAccess())
+            {
+                stateHolder.SwordCatchState.HitSwingState.ChagneHitSwordState(isHitSwing);
             }
             else
             {

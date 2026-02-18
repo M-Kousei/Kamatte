@@ -1,5 +1,6 @@
 using UnityEngine;
 using Kamatte.Customer;
+using Kamatte.Core;
 
 namespace Kamatte.SwordCatch
 {
@@ -65,9 +66,11 @@ namespace Kamatte.SwordCatch
             }
             if (swingTimer < 0)
             {
-                stateWriter.ChangeIsCatchState(false);
+                stateWriter.ChangeCatchState(false);
+                ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.IsCatch.SetBool(false);
+                stateWriter.ChangeHitSwingState(false);
                 _swordSwingController.SwingSword();
-                swingTimer = Random.Range(3, 10);
+                swingTimer = Random.Range(1, 10);
             }
         }
         void ChikenUpdate()    //  ê´äiChikenÇÃUpdate
