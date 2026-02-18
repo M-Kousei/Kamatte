@@ -20,11 +20,17 @@ namespace Kamatte.SwordCatch
 
         float swingTimer;     //  刀を振り下ろすまでのタイマー
         bool isTimerStop = false;
+        bool IsSpraked = false;
+
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip RoundVoiceClip;
 
         public bool IsTimerStop { 
             get{ return isTimerStop; }
             set { isTimerStop = value; }
         }
+
+        int Swingway = 0;
 
         private void Awake()
         {
@@ -64,13 +70,20 @@ namespace Kamatte.SwordCatch
                     SpeedStarUpdate();
                     break;
             }
+            if(Swingway == 1 && swingTimer < 0.35f && !IsSpraked)
+            {
+                IsSpraked = true;
+                audioSource.PlayOneShot(RoundVoiceClip, 0.7f);
+            }
             if (swingTimer < 0)
             {
                 stateWriter.ChangeCatchState(false);
                 ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.IsCatch.SetBool(false);
                 stateWriter.ChangeHitSwingState(false);
-                _swordSwingController.SwingSword();
+                _swordSwingController.SwingSword(Swingway);
                 swingTimer = Random.Range(1, 10);
+                Swingway = Random.Range(0, 2);
+                IsSpraked = false;
             }
         }
         void ChikenUpdate()    //  性格ChikenのUpdate

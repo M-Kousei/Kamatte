@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Kamatte.Core
@@ -40,11 +39,11 @@ namespace Kamatte.Core
             removeModeChangeTask = new RemoveModeChangeTask(modeChangeList, judgeAcceptableRemove);
 
             gameModeAPIFacade = new GameModeAPIFacade(pushTask, executeTask, removeModeChangeTask) as GameModeAPIFacadeBase;
+            ServiceLocator.Register<GameModeAPIFacadeBase>(gameModeAPIFacade);
         }
 
         private void Start()
         {
-            ServiceLocator.Register<GameModeAPIFacadeBase>(gameModeAPIFacade);
         }
     }
 }
