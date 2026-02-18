@@ -31,13 +31,14 @@ namespace Kamatte.Core
 
         public void Regist(GameModeChagneExecutor executor)    //  ゲームモード変更時の動作を登録
         {
-            executor.AddStep(new FadeOutStep());
+            //executor.AddStep(new FadeOutStep());
         }
         
         public void Init(float imageAlpha)
         {
             canvasGroup.alpha = imageAlpha;
             fadeImage.raycastTarget = false;
+            ServiceLocator.Resolve<GameModeAPIFacadeBase>().pushTask.PushStep(new FadeOutStep());
         }
 
         public Task FadeOut(float duration, Color? fadeColor = null)    //  フェードアウト処理を開始する

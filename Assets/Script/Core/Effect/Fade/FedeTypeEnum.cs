@@ -1,6 +1,8 @@
-
-public enum FadeType
+namespace Kamatte.Core
 {
-    FadeOut,
-    FadeIn,
+    public enum FadeType    //  フェードの種類
+    {
+        FadeOut,
+        FadeIn,
+    }
 }

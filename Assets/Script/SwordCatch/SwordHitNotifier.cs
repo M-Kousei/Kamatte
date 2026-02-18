@@ -8,7 +8,6 @@ namespace Kamatte.SwordCatch
     {
         [SerializeField] PlayerController _playerController;
         [SerializeField] SwingTimeController _swingTimeController;
-        [SerializeField] Animator _swingerAnimator;
         [SerializeField] StateHolder_SwordCatch stateHolder;
 
         void OnTriggerEnter(Collider other)
