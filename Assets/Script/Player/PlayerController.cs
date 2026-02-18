@@ -16,7 +16,7 @@ namespace Kamatte.Player
         [SerializeField] Vector3 StarEffectPos;
 
         [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioClip seClip;
+        [SerializeField] private AudioClip catchClip;
 
         public StateReader_SwordCatch StateReader { get; private set; }
         public StateWriter_SwordCatch StateWriter { get; private set; }
@@ -96,7 +96,7 @@ namespace Kamatte.Player
             if (StateReader.AcceseState().CatchState.IsCatchSword && !isSound)
             {
                 isSound = true;
-                audioSource.PlayOneShot(seClip, 0.6f);
+                audioSource.PlayOneShot(catchClip, 0.6f);
                 Debug.Log("リファクタ地獄");
             }
         }
