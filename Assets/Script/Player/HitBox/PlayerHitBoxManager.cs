@@ -12,12 +12,15 @@ namespace Kamatte.Player
         PlayerController controller;
         public Transform _playerHeadTF;    //  プレイヤーの頭
         HitBoxID activeID = HitBoxID.Unknown;                       //  アクティブにするボックスID
-        Vector3 StarEffectPos;
 
         StateWriter_SwordCatch stateWriter;
         StateReader_SwordCatch stateRead;
 
         public HitBoxData ActiveBox => _activeBox;
+
+        Vector3 StarEffectPos;
+        Vector3 FireWorksPos = new Vector3(648,-507,269);
+        Vector3 LightningCenterPos = new Vector3(616, -5.5f, 507);
 
         public PlayerHitBoxMgr
             (PlayerHitBoxData hitBoxData, PlayerController playerController, Animator SwordSwingerAnim, Transform playerHead, Vector3 starEffectPos, StateReader_SwordCatch read, StateWriter_SwordCatch writer)    //  コンストラクタ
@@ -31,6 +34,7 @@ namespace Kamatte.Player
             _playerHeadTF = playerHead;
             StarEffectPos = starEffectPos;
 
+            stateRead = read;
             stateWriter = writer;
         }
 
@@ -64,9 +68,12 @@ namespace Kamatte.Player
             var hits = Physics.OverlapBox(ResolveCenter(_playerHeadTF), _activeBox.size * 0.5f);    //  gpt とここから
             foreach (var h in hits)
             {
-                if (h.CompareTag("Sword") && !stateRead.AcceseState().CatchState.IsCatchSword)
+                if (h.CompareTag("Sword") && !stateRead.AcceseState().CatchState.IsCatchSword && !stateRead.AcceseState().HitSwingState.IsHitSwing)
                 {
-                    stateWriter.ChangeIsCatchState(true);
+                    PlayrRandomEffect();
+                    stateWriter.ChangeCatchState(true);
+                    stateWriter.AddCatchSuccessCnt();
+                    Debug.Log(stateRead.AcceseState().CatchState.CatchSuccessTime);
                     EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.CatchSword), StarEffectPos);
 
                     controller.PlayCatchSound();
@@ -84,5 +91,22 @@ namespace Kamatte.Player
             HitBoxAnchorType.World => _activeBox.worldCenter != null ? _activeBox.worldCenter : Vector3.zero,
             _ => owner.position
         };
+
+        void PlayrRandomEffect()
+        {
+            int r = Random.Range(0, 2);
+            if (r == 0)
+            {
+                EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.FireWorks), FireWorksPos);
+            }
+            else if(r == 1)
+            {
+                float radius = 7f;
+                Vector3 LightningAddPos = Random.insideUnitSphere * radius;
+                Vector3 LightningPos = new Vector3(LightningCenterPos.x + LightningAddPos.x, LightningCenterPos.y, LightningCenterPos.z + LightningAddPos.z);
+                EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.Lightning), LightningPos);
+            }
+
+        }
     }
 }

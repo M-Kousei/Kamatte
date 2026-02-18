@@ -5,10 +5,8 @@ namespace Kamatte.SwordCatch
 {
     public class SwordSwingController    //  刀の振り下ろしをコントロール
     {
-        Animator _swingerAnimator;    //  アニメーター型の変数
-        public SwordSwingController(Animator anim)    //  コンストラクタ
+        public SwordSwingController()    //  コンストラクタ
         {
-            _swingerAnimator = anim;
         }
 
         public void SwingSword()    //  刀振り下ろし
@@ -23,7 +21,8 @@ namespace Kamatte.SwordCatch
             }
             else if( r == 1)
             {
-                ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.FastSwing.SetTrigger();
+                ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.NormalSwing.SetTrigger();
+                //ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.FastSwing.SetTrigger();
                 Debug.LogWarning("Fast");
             }
             else if (r == 2)

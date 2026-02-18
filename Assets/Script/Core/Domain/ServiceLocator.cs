@@ -11,16 +11,25 @@ namespace Kamatte.Core
 
         public static void Register<T>(T service)    //  API‚ğ“o˜^
         {
+            if (services.ContainsKey(typeof(T)))
+            {
+                throw new InvalidOperationException(
+                    $"Service of type {typeof(T).Name} is already registered.");
+            }
+
             services[typeof(T)] = service;
         }
+      
         public static T Resolve<T>()    //  APIæ‚èo‚µ(Interface‚ÉƒLƒƒƒXƒg)
         {
             return (T)services[typeof(T)];
         }
+        
         public static void UnRegister<T>(T service)    //  “o˜^‰ğœ
         {
             services.Remove(typeof(T));
         }
+        
         public static void TrimServiceDict()    //  UnRegister‚ğŒÄ‚ÑI‚í‚Á‚½Œã‚Éƒƒ‚ƒŠ‚ğ‰ğ•ú‚·‚é‚½‚ß‚É«‘‚ğTrim
         {
             services.TrimExcess();

@@ -35,7 +35,7 @@ namespace Kamatte.Core
 
             Stop(key);    //  エフェクトを一回再生終了する
 
-            var instance = Instantiate(definition.prefab, position,Quaternion.identity);
+            var instance = Instantiate(definition.prefab, position, definition.prefab.transform.rotation);
 
             playingEffects[key] = instance;
         }
