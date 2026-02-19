@@ -93,12 +93,11 @@ namespace Kamatte.Player
 
         void PlayrRandomEffect()
         {
-            int r = Random.Range(0, 2);
-            if (r == 0)
+            if(stateRead.AcceseState().CatchState.CatchSuccessTime == 5)
             {
                 EffectAPIWindow.Play(new EffectKey(GameMode.SwordCatch, EffectKind.FireWorks), FireWorksPos);
             }
-            else if(r == 1)
+            if(stateRead.AcceseState().CatchState.CatchSuccessTime > 20)
             {
                 float radius = 7f;
                 Vector3 LightningAddPos = Random.insideUnitSphere * radius;

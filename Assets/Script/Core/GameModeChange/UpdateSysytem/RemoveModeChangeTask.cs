@@ -11,7 +11,7 @@ namespace Kamatte.Core
             judgeAcceptableRemove = judge;
         }
 
-        void RemoveStep(IGameModeChangeStep step)    //  スタックリストからモード変更時の処理を解放
+        public void RemoveStep(IGameModeChangeStep step)    //  スタックリストからモード変更時の処理を解放
         {
             if (judgeAcceptableRemove.Judge())
             {

@@ -65,19 +65,19 @@ namespace Kamatte.Player
                 ServiceLocator.Resolve<AnimParamFacadeBase>().PlayerParam.PlayerParam_Catch.SetTrigger();
             }
         }
-        void OnDrawGizmos()
-        {
-            if (playerHitBoxMgr.ActiveBox == null)
-                return;
+        //void OnDrawGizmos()
+        //{
+        //    if (playerHitBoxMgr.ActiveBox == null)
+        //        return;
 
-            // 中心座標を解決
-            Vector3 center = playerHitBoxMgr.ResolveCenter(playerHitBoxMgr._playerHeadTF);
-            Vector3 size = playerHitBoxMgr.ActiveBox.size;
+        //    // 中心座標を解決
+        //    Vector3 center = playerHitBoxMgr.ResolveCenter(playerHitBoxMgr._playerHeadTF);
+        //    Vector3 size = playerHitBoxMgr.ActiveBox.size;
 
-            Gizmos.color = Color.red;
-            Gizmos.matrix = Matrix4x4.TRS(center, playerHitBoxMgr._playerHeadTF.rotation, Vector3.one);
-            Gizmos.DrawWireCube(Vector3.zero, size);
-        }
+        //    Gizmos.color = Color.red;
+        //    Gizmos.matrix = Matrix4x4.TRS(center, playerHitBoxMgr._playerHeadTF.rotation, Vector3.one);
+        //    Gizmos.DrawWireCube(Vector3.zero, size);
+        //}
 
         public void ActiveHitBox()
         {

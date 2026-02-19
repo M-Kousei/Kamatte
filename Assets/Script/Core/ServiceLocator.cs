@@ -13,8 +13,6 @@ namespace Kamatte.Core
         {
             if (services.ContainsKey(typeof(T)))
             {
-                throw new InvalidOperationException(
-                    $"Service of type {typeof(T).Name} is already registered.");
             }
 
             services[typeof(T)] = service;

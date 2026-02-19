@@ -38,7 +38,6 @@ namespace Kamatte.Core
         {
             canvasGroup.alpha = imageAlpha;
             fadeImage.raycastTarget = false;
-            ServiceLocator.Resolve<GameModeAPIFacadeBase>().pushTask.PushStep(new FadeOutStep());
         }
 
         public Task FadeOut(float duration, Color? fadeColor = null)    //  フェードアウト処理を開始する
