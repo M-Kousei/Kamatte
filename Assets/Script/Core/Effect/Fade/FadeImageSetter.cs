@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEditor;
 using Kamatte.ID;
-using Kamatte.ProgressBar;
 
 namespace Kamatte.Core
 {
@@ -25,12 +24,12 @@ namespace Kamatte.Core
                 foreach (GameObject fadeImage in fadeImages)
                 {
                     float progress = (float)setCnt / totalTask;    //  進行度
-                    bool IsCanceled = ProgressBarUtility.ShowCancelable(ProgressTitle, ProgressMsg_Scene + fadeImage.name, progress);    //  キャンセルボタンが押されるかどうかのフラグ
+                    //bool IsCanceled = ProgressBarUtility.ShowCancelable(ProgressTitle, ProgressMsg_Scene + fadeImage.name, progress);    //  キャンセルボタンが押されるかどうかのフラグ
                                                                                                                                          //  イメージ設定変更のプログレスバーを表示
-                    if (IsCanceled)
-                    {
-                        break;
-                    }
+                    //if (IsCanceled)
+                    //{
+                    //    break;
+                    //}
                     //  設定適応
                     ApplySettings(fadeImage);
                     LogUtility.Log(LogPrefix.FadeImageSetter, "フェード用Imageの設定完了", LogLevel.Info);
@@ -40,7 +39,7 @@ namespace Kamatte.Core
             finally
             {
                 //  プログレスバー消去
-                ProgressBarUtility.Clear();
+                //ProgressBarUtility.Clear();
             }
             LogUtility.Log(LogPrefix.FadeImageSetter, $"フェード用Image設定適用完了。処理対象{setCnt}個のImage",LogLevel.Info);
         }
