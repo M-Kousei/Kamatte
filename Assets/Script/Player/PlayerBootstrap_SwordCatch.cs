@@ -45,9 +45,5 @@ namespace Kamatte.Player
 
             playerController.Initialize(playerHitBoxData, playerHeadTF, stateReader, stateWriter);    //  Controller‚Ì«¿ãAwake‚Å‰Šú‰»
         }
-
-        void Start()
-        {
-        }
     }
 }

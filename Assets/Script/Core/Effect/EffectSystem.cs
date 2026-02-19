@@ -17,7 +17,7 @@ namespace Kamatte.Core
 
         private void OnDestroy()
         {
-            //ServiceLocator.Unregister<IEffectSystem>();    // シーン破棄時に解除（任意だが安全）
+            ServiceLocator.UnRegister<IEffectSystem>(this);    // シーン破棄時に解除（任意だが安全）
         }
 
         //  --  Public API

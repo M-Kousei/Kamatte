@@ -8,6 +8,7 @@ namespace Kamatte.Core
 
         void Start()
         {
+            Time.timeScale = 0.5f;
             BGMManager.Instance.Play(_bootBGM);
         }
     }
