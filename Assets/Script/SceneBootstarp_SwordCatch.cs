@@ -16,6 +16,7 @@ namespace Kamatte.SwordCatch
         ResultDisplay resultDisplay;
         [SerializeField] GameObject resultRoot;
         [SerializeField] TextMeshProUGUI playerPowerTxt;
+        [SerializeField] TextMeshProUGUI CatchCountTxt;
         [SerializeField] Button RetryButton;
 
         StopAudio stopAudio;
@@ -32,7 +33,7 @@ namespace Kamatte.SwordCatch
             stateReader = new StateReader_SwordCatch(stateHolder, readJudge);
 
             fadeOutStep = new FadeOutStep();
-            resultDisplay = new ResultDisplay(resultRoot, playerPowerTxt, stateReader);
+            resultDisplay = new ResultDisplay(resultRoot, CatchCountTxt, playerPowerTxt, stateReader);
             stopAudio = new StopAudio(BgmSource);
         }
 
