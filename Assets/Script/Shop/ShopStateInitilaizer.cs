@@ -17,7 +17,7 @@ namespace Kamatte.Core
 
         protected override void InitGameState()    //  ƒQ[ƒ€‚Ìó‘Ô‚ğİ’è
         {
-            GameStateManager.Instance.OnSwordCatch();    //  ¡‚Í’¼”’næ‚è
+            //SceneBootstrap_Title.Instance.OnSwordCatch();    //  ¡‚Í’¼”’næ‚è
         }
 
         protected override void InitUI()    //  UI‚ğ‰Šú‰»
