@@ -9,14 +9,16 @@ namespace Kamatte.SwordCatch
     {
         GameObject resultRoot;
         TextMeshProUGUI playerLevelTxt;
+        TextMeshProUGUI countTxt;
         StateReader_SwordCatch stateRead;
 
         public int Order => 50;    //  é¿çsèá(è¨Ç≥Ç¢ï˚Ç™êÊ)
         
-        public ResultDisplay(GameObject resultRoot, TextMeshProUGUI text, StateReader_SwordCatch stateRead)
+        public ResultDisplay(GameObject resultRoot, TextMeshProUGUI countText, TextMeshProUGUI levelText, StateReader_SwordCatch stateRead)
         {
             this.resultRoot = resultRoot;
-            playerLevelTxt = text;
+            this.countTxt = countText;
+            playerLevelTxt = levelText;
             this.stateRead = stateRead;
         }
 
@@ -24,6 +26,7 @@ namespace Kamatte.SwordCatch
         {
             if (prev == GameMode.SwordCatch && next == GameMode.SwordCatch)
             {
+                countTxt.text = stateRead.AcceseState().CatchState.CatchSuccessTime.ToString();
                 playerLevelTxt.text = GetPlayerLevel();
                 resultRoot.SetActive(true);
                 yield break;
