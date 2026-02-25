@@ -70,10 +70,10 @@ namespace Kamatte.SwordCatch
                     SpeedStarUpdate();
                     break;
             }
-            if(Swingway == 1 && swingTimer < 0.365f && !IsSpraked)
+            if(Swingway == 1 && swingTimer < 0.37f && !IsSpraked)
             {
                 IsSpraked = true;
-                audioSource.PlayOneShot(RoundVoiceClip, 0.3f);
+                audioSource.PlayOneShot(RoundVoiceClip, 0.4f);
             }
             if (swingTimer < 0)
             {

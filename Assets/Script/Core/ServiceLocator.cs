@@ -23,7 +23,7 @@ namespace Kamatte.Core
             return (T)services[typeof(T)];
         }
         
-        public static void UnRegister<T>(T service)    //  “o˜^‰ğœ
+        public static void Unregister<T>(T service)    //  “o˜^‰ğœ
         {
             services.Remove(typeof(T));
         }
