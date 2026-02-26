@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Kamatte.Core
 {
-    public class GameModeChagneBootstrap : MonoBehaviour    //  ゲームモード変更クラス系のBootstrap
+    public class ModeChagneBootstrap : MonoBehaviour    //  ゲームモード変更クラス系のBootstrap
     {
         ModeChangeList modeChangeList;    //  モード変更時の処理を格納するListを持っているクラス
         
@@ -19,14 +19,6 @@ namespace Kamatte.Core
 
         private void Awake()
         {
-            //GameModeChanger _changer = new GameModeChanger();
-
-            //var stateMachine = new GameModeStateMachine(GameMode.Title, _changer);
-
-            //var service = new GameModeService(stateMachine);
-
-            //ServiceLocator.Register<IGameModeService>(service);
-
             modeChangeList = new ModeChangeList();
 
             judgePush = new JudgeAcceotablePush();
