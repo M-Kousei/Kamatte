@@ -4,29 +4,32 @@ using Kamatte.UI.Buttons;
 
 namespace Kamatte.Core
 {
-    [CreateAssetMenu(menuName = "Mapping/SceneUIIDMap")]
-    public class SceneToUIMap : ScriptableObject    //  SceneIDと他のUIIDを変換するためのMap
+    [CreateAssetMenu(fileName = "SceneIDCovert" ,menuName = "UI/SceneIDConvert")]
+    public class SceneIDConvert : ScriptableObject    //  SceneIDとUIIDを変換するためのMap
     {
         [Serializable]
-        public struct Mapping    //  ID変換用Map
+        public struct Mapping    //  GameStateIDとuiID変換用Map
         {
             public GameStateID sceneID;
-            public ButtonControllerID controllerID;
+            public UIID uiID;
         }
 
         [SerializeField] private Mapping[] mappings;
 
-        //  SceneIDに対応するコントローラーを抽出する
-        public bool TryGetControllerID(GameStateID sceneID, out ButtonControllerID controllerID)
+        //  --  Public method
+
+        //  SceneIDに対応するUIIDを抽出する
+        public bool TryGetUIID(GameStateID sceneID, out UIID controllerID)
         {
             foreach (var map in mappings)
             {
                 if (map.sceneID == sceneID)
                 {
-                    controllerID = map.controllerID;
+                    controllerID = map.uiID;
                     return true;
                 }
             }
+
             controllerID = default;
             return false;
         }

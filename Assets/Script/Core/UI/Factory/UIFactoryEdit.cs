@@ -6,11 +6,11 @@ using UnityEngine;
 namespace Kamatte.Core
 {
     [CustomEditor(typeof(UIFactory))]
-    public class UIFactoryEditor : Editor
+    public class UIFactoryEditor : Editor    //  UIFactory(SO)のインスペクターを拡張する
     {
         private ReorderableList list;
 
-        private void OnEnable()
+        private void OnEnable()    //  SOのインスペクターの見た目をいじる
         {
             var mappingsProp = serializedObject.FindProperty("uiMappings");
 
@@ -20,7 +20,7 @@ namespace Kamatte.Core
                 var element = mappingsProp.GetArrayElementAtIndex(index);
                 EditorGUI.PropertyField(
                     new Rect(rect.x, rect.y, rect.width / 2, EditorGUIUtility.singleLineHeight),
-                    element.FindPropertyRelative("buttonControllerID"), GUIContent.none);
+                    element.FindPropertyRelative("uiID"), GUIContent.none);
 
                 EditorGUI.PropertyField(
                     new Rect(rect.x + rect.width / 2, rect.y, rect.width / 2, EditorGUIUtility.singleLineHeight),
@@ -29,13 +29,14 @@ namespace Kamatte.Core
 
             list.drawHeaderCallback = (rect) =>
             {
-                EditorGUI.LabelField(rect, "UI Mappings (ButtonControllerID → Prefab)");
+                EditorGUI.LabelField(rect, "UI Mappings (UIID → Prefab)");
             };
         }
 
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("sceneIDConvert"));
             list.DoLayoutList();
             serializedObject.ApplyModifiedProperties();
         }
