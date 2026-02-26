@@ -1,12 +1,14 @@
 using UnityEngine;
-using Kamatte.Core;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
+using Kamatte.Core;
 
 namespace Kamatte.SwordCatch
 {
     public class SceneBootstarp_SwordCatch : MonoBehaviour
     {
+        SceneStartStepExcuteBase startStepExcute;    //  シーン開始時に必要な処理をするクラス
+
         [SerializeField] StateHolder_SwordCatch stateHolder;    //  ミニゲームのStateを集約してる、Reader層から呼ばれる。
         StateReader_SwordCatch stateReader;    //  下位クラスからStateClassへのFacade、Judgeインスタンスからアクセス可否を判断する。
         StateReadJudge_SwordCatch readJudge;    //  アクセスが適正かを判断する関数をReader層から呼ばれる。
@@ -22,8 +24,11 @@ namespace Kamatte.SwordCatch
         StopAudio stopAudio;
         [SerializeField] AudioSource BgmSource;
 
+
         void Awake()
         {
+            startStepExcute = new SceneStartStepExcute();
+            
             if (stateHolder == null)
             {
                 Debug.LogError("stateHolder isn't assigned in the Inspector");
@@ -39,6 +44,8 @@ namespace Kamatte.SwordCatch
 
         void Start()
         {
+            startStepExcute.StartSteps();
+
             RetryButton.onClick.AddListener(Retry);
             ServiceLocator.Resolve<GameModeAPIFacadeBase>().pushTask.PushStep(resultDisplay);
             ServiceLocator.Resolve<GameModeAPIFacadeBase>().pushTask.PushStep(stopAudio);
@@ -56,6 +63,5 @@ namespace Kamatte.SwordCatch
             ServiceLocator.Resolve<GameModeAPIFacadeBase>().removeTask.RemoveStep(stopAudio);
             ServiceLocator.Resolve<GameModeAPIFacadeBase>().removeTask.RemoveStep(fadeOutStep);
         }
-
     }
 }

@@ -5,36 +5,28 @@ using UnityEngine.UI;
 
 namespace Kamatte.Core
 {
-    public class ScreenFader : MonoBehaviour, IFadeConotroller    //  画面をフェードする
+    public class ScreenFade    //  画面をフェードする
     {
-        public static ScreenFader Instance { get; private set; }
+        CanvasGroup canvasGroup;
+        Canvas canvas;
+        Image fadeImage;
 
-        [SerializeField] private CanvasGroup canvasGroup;
-        [SerializeField] private Canvas canvas;
-        [SerializeField] private Image fadeImage;
-
-        private void Awake()
+        public ScreenFade(CanvasGroup canvasGroup, Canvas canvas, Image fadeImage)
         {
-            if (Instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-
             if (canvas == null || fadeImage == null || canvasGroup == null)
             {
                 LogUtility.Log(LogPrefix.ScreenFader, "画面のフェードに必要な参照が不足しています。", LogLevel.Warning);
             }
+            else
+            {
+                this.canvasGroup = canvasGroup;
+                this.canvas = canvas;
+                this.fadeImage = fadeImage;
+                InitializeSetting(0f);
+            }
         }
 
-        public void Regist(GameModeChagneExecutor executor)    //  ゲームモード変更時の動作を登録
-        {
-            //executor.AddStep(new FadeOutStep());
-        }
-        
-        public void Init(float imageAlpha)
+        public void InitializeSetting(float imageAlpha)
         {
             canvasGroup.alpha = imageAlpha;
             fadeImage.raycastTarget = false;
@@ -44,14 +36,14 @@ namespace Kamatte.Core
         {
             TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
             SetFadeColor(fadeColor ?? Color.black);
-            StartCoroutine(FadeCoroutine(0f, 1f, duration, tcs));
+            ServiceLocator.Resolve<ICoroutineRunnerFacade>().StartCoroutine(FadeCoroutine(0f, 1f, duration, tcs));
             return tcs.Task;
         }
        
         public Task FadeIn(float duration)    //  フェードイン処理を開始する    
         {
             TaskCompletionSource<bool> tcs = new TaskCompletionSource<bool>();
-            StartCoroutine(FadeCoroutine(1f, 0f, duration, tcs));
+            ServiceLocator.Resolve<ICoroutineRunnerFacade>().StartCoroutine(FadeCoroutine(1f, 0f, duration, tcs));
             return tcs.Task;
         }
 

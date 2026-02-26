@@ -1,4 +1,3 @@
-using System.Collections;
 using Unity.VisualScripting;
 
 namespace Kamatte.Core
@@ -16,7 +15,14 @@ namespace Kamatte.Core
 
         public void Execute(GameMode prev, GameMode next)    //  é¿çs
         {
-            CoroutineRunner.instance.StartCoroutine(modeChangeList.Execute(prev, next));
+            if (judgeAcceptableExecute.Judge())
+            {
+                ServiceLocator.Resolve<ICoroutineRunnerFacade>().StartCoroutine(modeChangeList.Execute(prev, next));
+            }
+        }
+        public void startScene()
+        {
+
         }
     }
 }

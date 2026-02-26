@@ -10,7 +10,6 @@ namespace Kamatte.Core
         void Start()
         {
             UIManager.Instance.ChangeUI(GameStateID.Title);    //  タイトル画面のUIに変更
-            ScreenFader.Instance.Init(0f);    //  フェードPanelを初期化
         }
     }
 }

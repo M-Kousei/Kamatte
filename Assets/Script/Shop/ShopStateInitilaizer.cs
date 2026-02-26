@@ -31,7 +31,6 @@ namespace Kamatte.Core
         }
         protected override void InitEffect()    //  BGMや効果音を再生
         {
-            ScreenFader.Instance.FadeIn(1f);
         }
 
         protected override void InitOthers()    //  その他任意の処理（必要に応じて）
