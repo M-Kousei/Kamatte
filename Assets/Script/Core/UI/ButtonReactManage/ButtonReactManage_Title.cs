@@ -2,21 +2,17 @@ using UnityEngine;
 
 namespace Kamatte.Core
 {
-    public class TitleButtonController : MonoBehaviour, IUIController    //  タイトル画面のボタンに反応を入れる
+    public class ButtonReactManage_Title : MonoBehaviour, IUIController    //  タイトル画面のボタンに反応を入れる
     {
         [SerializeField] private ButtonManager buttonManager;
         [SerializeField] private GameObject TutorialRoot;
 
-        void Awake()
-        {
-            Debug.Log(21, this.gameObject);
-        }
         //  ボタン初期化
         public void Init()
         {
             // ボタン登録など
-            buttonManager.Register(ButtonID.GoPlayButton, OnGoPlayPressed);
-            buttonManager.Register(ButtonID.TutorialButton, DisplayTutorial);
+            buttonManager.RegistReact(ButtonID.GoPlayButton, OnGoPlayPressed);
+            buttonManager.RegistReact(ButtonID.TutorialButton, DisplayTutorial);
 
             // UI初期状態の設定など
             buttonManager.EnableAllButtons();
@@ -26,7 +22,7 @@ namespace Kamatte.Core
         public void Deinit()
         {
             // ボタンのイベント解除（※ Unregister を実装しておく）
-            buttonManager.Unregister(ButtonID.GoPlayButton);
+            buttonManager.UnregistReact(ButtonID.GoPlayButton);
 
             // UIの一時非表示や状態クリアなど
             buttonManager.DisableAllButtons();

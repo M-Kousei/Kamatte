@@ -1,27 +1,20 @@
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace Kamatte.Core
 {
-    public class UIManager : MonoBehaviour    //  包括的なUI管理をする
+    public class UIManager    //  包括的なUI管理をするクラス
     {
-        private Dictionary<GameStateID, IUIController> uiCache = new();
-        [SerializeField] private UIFactory uiFactory;
-        public static UIManager Instance { get; private set; }
+        private UIFactory uiFactory;    //  UIObjcetのRootが詰まってるSO
 
+        private Dictionary<GameStateID, IUIController> uiCache = new();
 
         private IUIController currentUIController;
 
+        //  --  Public method
 
-        void Awake()
+        public UIManager(UIFactory uiFactory)
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            this.uiFactory = uiFactory;
         }
 
         //  ゲームステート単位でUIを変更する

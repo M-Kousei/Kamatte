@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 namespace Kamatte.Core
 {
-    public class ButtonManager : MonoBehaviour    //  ボタン登録・管理スクリプト
+    public class ButtonManager : MonoBehaviour    //  ボタンの管理関数保持クラス
     {
         [System.Serializable]
         public class ButtonMapping
@@ -24,11 +24,11 @@ namespace Kamatte.Core
                     .FirstOrDefault(b => string.Equals(b.name, id.ToString(), StringComparison.Ordinal));
                 if (button != null)
                 {
-                    LogUtility.Log(LogPrefix.TitleButtonmanager ,$" {id} に {button.name} を自動割当しました。", LogLevel.Info);
+                    Debug.Log("$\" {id} に {button.name} を自動割当しました。\"");
                 }
                 else
                 {
-                    LogUtility.Log(LogPrefix.TitleButtonmanager, $" {id} に対応するボタンが見つかりませんでした。", LogLevel.Warning);
+                    Debug.Log($" {id.ToString()} に対応するボタンが見つかりませんでした。");
                 }
             }
 #endif
@@ -61,12 +61,13 @@ namespace Kamatte.Core
 #endif
         void Awake()
         {
-            InitializeButtons();
+            InitializeButtons();    //  ボタン初期化
         }
 
         private void InitializeButtons()    //  ボタンを初期化する
         {
-            buttonMap.Clear(); // 先に初期化しておく
+            buttonMap.Clear();
+
             foreach (ButtonMapping mapping in buttonMapping)
             {
                 if (mapping.button != null)
@@ -76,7 +77,7 @@ namespace Kamatte.Core
             }
         }
 
-        public void Register(ButtonID ButtonID, Action callback)    //    ボタン反応入れ
+        public void RegistReact(ButtonID ButtonID, Action callback)    //    ボタン反応入れ
         {
             if (buttonMap.TryGetValue(ButtonID, out Button button))
             {
@@ -85,11 +86,11 @@ namespace Kamatte.Core
             }
             else
             {
-                LogUtility.Log(LogPrefix.TitleButtonmanager, $"ボタンが見つかりません: {ButtonID}", LogLevel.Warning);
+                Debug.LogWarning($"ボタンが見つかりません: {ButtonID}");
             }
         }
         
-        public void Unregister(ButtonID ButtonID)    //  ボタン反応解除
+        public void UnregistReact(ButtonID ButtonID)    //  ボタン反応解除
         {
             if (buttonMap.TryGetValue(ButtonID, out Button button))
             {
@@ -104,6 +105,7 @@ namespace Kamatte.Core
                 button.interactable = interactable;
             }
         }
+
         public void DisableAllButtons()    //  ボタン全部反応不可能にする
         {
             foreach (var btn in buttonMap.Values)
@@ -119,6 +121,5 @@ namespace Kamatte.Core
                 btn.interactable = true;
             }
         }
-
     }
 }

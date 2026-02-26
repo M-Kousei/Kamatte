@@ -9,7 +9,7 @@ namespace Kamatte.Core
 
         void Start()
         {
-            UIManager.Instance.ChangeUI(GameStateID.Title);    //  タイトル画面のUIに変更
+            ServiceLocator.Resolve<IUIManageFacade>().ChangeUI(GameStateID.Title);
         }
     }
 }
