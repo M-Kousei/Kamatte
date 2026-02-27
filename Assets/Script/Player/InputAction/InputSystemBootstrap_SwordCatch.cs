@@ -25,5 +25,10 @@ namespace Kamatte.Core
             playerAction_SwordCatch = new PlayerInputAction_SwordCatch(stateReader);
             handleAction_Player = new HandleInputAction_SwordCatch(inputAction_System, playerAction_SwordCatch);
         }
+
+        private void OnDestroy()
+        {
+            handleAction_Player.SetOffReaction();
+        }
     }
 }

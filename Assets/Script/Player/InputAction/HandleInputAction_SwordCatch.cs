@@ -16,18 +16,13 @@ namespace Kamatte.Core
             SetReaction();
         }
 
-        void OnDestroy()
-        {
-            SetOffReaction();
-        }
-
         void SetReaction()
         {
             inputSystem_Action.Player.Enable();
             inputSystem_Action.Player.Catch.started += playerAction_SwordCatch.Catch;
         }
 
-        void SetOffReaction()
+        public void SetOffReaction()
         {
             inputSystem_Action.Player.Catch.started -= playerAction_SwordCatch.Catch;
             inputSystem_Action.Player.Disable();
