@@ -27,7 +27,7 @@ namespace Kamatte.SwordCatch
 
         private void OnCatchPressed(InputAction.CallbackContext ctx)    //  キャッチが押されたときBusに伝達
         {
-            SwordCatchEventBus.RaiseCatchPressed();
+            //SwordCatchEventBus.RaiseCatchPressed();
         }
     }
 }

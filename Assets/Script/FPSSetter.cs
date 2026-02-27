@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Kamatte.Core
@@ -6,7 +5,7 @@ namespace Kamatte.Core
     public class FPSSetter : MonoBehaviour    //  FPSを固定する
     {
         public static FPSSetter Instance { get; private set; }    //  インスタンス
-        public event Action OnGameFrameUpdate;                    //  フレーム進行でおこるイベント
+        //public event Action OnGameFrameUpdate;                    //  フレーム進行でおこるイベント
 
         public int targetFPS = 60;
         public float FixedDeltaTime => 1f / targetFPS;
@@ -17,7 +16,10 @@ namespace Kamatte.Core
 
         void Awake()
         {
-            if (Instance != null) Destroy(gameObject);
+            if (Instance != null)
+            {
+                Destroy(gameObject);
+            }
             else Instance = this;
 
             DontDestroyOnLoad(gameObject);
@@ -31,7 +33,7 @@ namespace Kamatte.Core
             {
                 timer -= FixedDeltaTime;
                 FrameCount++;
-                OnGameFrameUpdate?.Invoke();
+                //OnGameFrameUpdate?.Invoke();
             }
         }
     }
