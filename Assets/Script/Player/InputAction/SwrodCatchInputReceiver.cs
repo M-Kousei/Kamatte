@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Kamatte.Core;
 
 namespace Kamatte.SwordCatch
 {
