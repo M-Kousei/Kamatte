@@ -5,7 +5,7 @@ namespace Kamatte.Core
 {
     public class GameInitializationContext : MonoBehaviour    //  全体的な初期化管理者
     {
-        [SerializeField] PlayerController _playerController;    //  プレイヤーコントローラー
+        [SerializeField] PlayerHitBoxController _playerController;    //  プレイヤーコントローラー
         [SerializeField] PlayerHitBoxData playerHitBoxData;     //  プレイヤーヒットボックス群
         [SerializeField] Transform PlayerHeadTF;                //  プレイヤーヘッドTF
 

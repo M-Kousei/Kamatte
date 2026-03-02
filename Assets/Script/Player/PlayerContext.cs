@@ -1,34 +1,25 @@
 using UnityEngine;
+using Kamatte.SwordCatch;
 
 namespace Kamatte.Player
 {
-    [DefaultExecutionOrder(-100)]
-    public class PlayerContext : MonoBehaviour    //  プレイヤーコンテキスト
+    public class PlayerContext    //  初期化用コンテキスト
     {
-        public Transform rightHandTransform;      //  右手のトランスフォーム
-        public Transform leftHandTransform;       //  左手のランスフォーム
-        public static PlayerContext Instance { get; private set; }              //  プロパティ
+        public PlayerHitBoxMgr HitBoxMgr { get; private set; }
+        public Transform HeadTF { get; private set; }
+        public StateReader_SwordCatch StateReader { get; private set; }
+        public StateWriter_SwordCatch StateWriter { get; private set; }
+        public AudioSource AudioSource{ get; private set; }
+        public AudioClip CatchSE{ get; private set; }
 
-        public PlayerController _playerController { get; private set; }
-
-        void Awake()
+        public PlayerContext(PlayerHitBoxMgr hitBoxMgr, Transform headTF, StateReader_SwordCatch stateReader, StateWriter_SwordCatch stateWriter, AudioSource audioSource, AudioClip catchSE)
         {
-            if (Instance != null)
-            {
-                Destroy(gameObject);
-                return;
-            }
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            HitBoxMgr = hitBoxMgr;
+            HeadTF = headTF;
+            StateReader = stateReader;
+            StateWriter = stateWriter;
+            AudioSource = audioSource;
+            CatchSE = catchSE;
         }
-
-        public void RegistPlayerCotroller(PlayerController playerController)    //  プレイヤーコントローラー登録
-        {
-            _playerController = playerController;
-        }
-        //public void RegistPlayerMove(PlayerMove playerMove)    //  コントローラー登録メソッド
-        //{
-        //    _PlayerMove = playerMove;
-        //}
     }
 }

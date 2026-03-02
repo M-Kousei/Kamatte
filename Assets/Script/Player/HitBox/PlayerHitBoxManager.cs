@@ -9,7 +9,7 @@ namespace Kamatte.Player
     {
         Dictionary<HitBoxID, HitBoxData> _hitbBoxDictionary;    //  当たり判定一覧
         HitBoxData _activeBox = null;    //  アクティブになってる当たり判定
-        PlayerController controller;
+        PlayerHitBoxController controller;
         public Transform _playerHeadTF;    //  プレイヤーの頭
         HitBoxID activeID = HitBoxID.Unknown;                       //  アクティブにするボックスID
 
@@ -23,7 +23,7 @@ namespace Kamatte.Player
         Vector3 LightningCenterPos = new Vector3(616, -5.5f, 507);
 
         public PlayerHitBoxMgr
-            (PlayerHitBoxData hitBoxData, PlayerController playerController, Transform playerHead, Vector3 starEffectPos, StateReader_SwordCatch read, StateWriter_SwordCatch writer)    //  コンストラクタ
+            (PlayerHitBoxData hitBoxData, PlayerHitBoxController playerController, Transform playerHead, Vector3 starEffectPos, StateReader_SwordCatch read, StateWriter_SwordCatch writer)    //  コンストラクタ
         {
             _hitbBoxDictionary = new Dictionary<HitBoxID, HitBoxData>();
             foreach (var box in hitBoxData.playerHitBoxes)
