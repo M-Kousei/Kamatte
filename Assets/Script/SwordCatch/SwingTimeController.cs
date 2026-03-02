@@ -25,11 +25,6 @@ namespace Kamatte.SwordCatch
         [SerializeField] private AudioSource audioSource;
         [SerializeField] private AudioClip RoundVoiceClip;
 
-        public bool IsTimerStop { 
-            get{ return isTimerStop; }
-            set { isTimerStop = value; }
-        }
-
         int Swingway = 0;
 
         private void Awake()
@@ -54,7 +49,7 @@ namespace Kamatte.SwordCatch
         }
         void Update()
         {
-            if (!IsTimerStop)
+            if (!stateReader.AcceseState().HitSwingState.IsHitSwing)
             {
                 swingTimer -= Time.deltaTime;
             }

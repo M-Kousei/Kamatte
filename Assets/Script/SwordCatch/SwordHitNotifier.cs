@@ -7,22 +7,17 @@ namespace Kamatte.SwordCatch
     public class SwordHitNotifier : MonoBehaviour    //  ìÅÇ™ìñÇΩÇ¡ÇΩéûÇ…èàóùÇìÆÇ©Ç∑
     {
         [SerializeField] PlayerHitBoxController _playerController;
-        [SerializeField] SwingTimeController _swingTimeController;
         [SerializeField] StateHolder_SwordCatch stateHolder;
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.CompareTag("Sword") && !stateHolder.SwordCatchState.CatchState.IsCatchSword)/* && !_playerController.isCatching*/
+            if (other.CompareTag("Sword") && !stateHolder.SwordCatchState.CatchState.IsCatchSword)
             {
                 _playerController.EraseHitBox();
                 stateHolder.SwordCatchState.HitSwingState.ChagneHitSwordState(true);
-                //GameModeChagneEvents.RaiseChanged(GameMode.SwordCatch, GameMode.SwordCatch);
                 EffectActAPI.Action(new EffectActKey(EffectActor.Player, EffectActTrigger.Hit, EffectActType.Blow));
-                _swingTimeController.IsTimerStop = true;
                 ServiceLocator.Resolve<AnimParamFacadeBase>().SwingerParam.IsHited.SetBool(true);
-                //ServiceLocator.Resolve<IGameModeService>().RequestChange(GameMode.SwordCatch);
             }
-            //  Endèàóù
         }
     }
 }
