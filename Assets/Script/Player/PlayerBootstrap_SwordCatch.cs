@@ -4,13 +4,18 @@ using Kamatte.SwordCatch;
 
 namespace Kamatte.Player
 {
-    [RequireComponent(typeof(PlayerController))]
+    [RequireComponent(typeof(PlayerHitBoxController))]
     [DisallowMultipleComponent]
-    public class PlayerBootstrap : MonoBehaviour
+    public class PlayerHitBoxControllerBootstrap : MonoBehaviour
     {
-        [SerializeField] PlayerController playerController; 
+        [SerializeField] PlayerHitBoxController playerController; 
+        PlayerContext context;    //  初期化のためのコンテキスト
+
         [SerializeField] PlayerHitBoxData playerHitBoxData;
         [SerializeField] Transform playerHeadTF;
+        PlayerHitBoxMgr  playerHitBoxMgr;
+
+        [SerializeField] Vector3 catchEffectPos;
 
         [SerializeField] StateHolder_SwordCatch stateHolder;    //  ミニゲームのStateを集約してる、Reader層から呼ばれる。
         StateReader_SwordCatch stateReader;    //  下位クラスからStateClassへのFacade、Judgeインスタンスからアクセス可否を判断する。
@@ -18,11 +23,16 @@ namespace Kamatte.Player
         StateWriter_SwordCatch stateWriter;    //  下位クラスからStateを書き換えるためのFacade、judgeを通ったらState集約クラスの関数を使って書き換える
         StateWriteJudge_SwordCatch writeJudge;    //  下位クラスからの書き換えが適正かを判断する、Witerにインスタンスを渡してそこから判断関数を呼び出してもらう
 
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip catchClip;
+
+        //  --  Unity life cycle
+
         void Awake()
         {
             if (playerController == null)
             {
-                playerController = GetComponent<PlayerController>();
+                playerController = GetComponent<PlayerHitBoxController>();
                 Debug.LogWarning("playerController isn't assigned in the Inspector");
             }
             if(playerHitBoxData == null)
@@ -43,7 +53,11 @@ namespace Kamatte.Player
             writeJudge = new StateWriteJudge_SwordCatch();
             stateWriter = new StateWriter_SwordCatch(stateHolder, writeJudge);
 
-            playerController.Initialize(playerHitBoxData, playerHeadTF, stateReader, stateWriter);    //  Controllerの性質上Awakeで初期化
+            playerHitBoxMgr = new PlayerHitBoxMgr(playerHitBoxData, playerController, playerHeadTF, catchEffectPos, stateReader, stateWriter);
+
+            context = new PlayerContext(playerHitBoxMgr, playerHeadTF, stateReader, stateWriter, audioSource, catchClip);
+          
+            playerController.Initialize(context);    //  Controllerの性質上Awakeで初期化
         }
     }
 }
