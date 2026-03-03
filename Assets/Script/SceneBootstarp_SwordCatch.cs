@@ -21,6 +21,9 @@ namespace Kamatte.SwordCatch
         [SerializeField] TextMeshProUGUI CatchCountTxt;
         [SerializeField] Button RetryButton;
 
+        [SerializeField] SwingTimeController swingTimeController;
+        SwordSwingController swordSwingController;
+
         StopAudio stopAudio;
         [SerializeField] AudioSource BgmSource;
 
@@ -40,12 +43,15 @@ namespace Kamatte.SwordCatch
             fadeOutStep = new FadeOutStep();
             resultDisplay = new ResultDisplay(resultRoot, CatchCountTxt, playerPowerTxt, stateReader);
             stopAudio = new StopAudio(BgmSource);
+            swordSwingController = new SwordSwingController();
         }
 
         void Start()
         {
             startStepExcute.StartSteps();
 
+            swingTimeController.Initialize(swordSwingController);
+            
             RetryButton.onClick.AddListener(Retry);
             ServiceLocator.Resolve<GameModeAPIFacadeBase>().pushTask.PushStep(resultDisplay);
             ServiceLocator.Resolve<GameModeAPIFacadeBase>().pushTask.PushStep(stopAudio);
