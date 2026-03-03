@@ -67,7 +67,6 @@ namespace Kamatte.SwordCatch
 
         void GenerateSwingerSystem()  //  各パラメータークラスを初期化して集約クラスに渡す
         {
-            Debug.Log(animatorMap[AnimatorRole.SwordSwinger]);
             SwingerParam_NormalSwing normalSwingParam = new(animatorMap[AnimatorRole.SwordSwinger], "NormalSwing");
             SwingerParam_FastSwing fastSwingParam = new(animatorMap[AnimatorRole.SwordSwinger], "FastSwing");
             SwingerParam_DelaySwing delaySwingParam = new(animatorMap[AnimatorRole.SwordSwinger], "DelaySwing");
